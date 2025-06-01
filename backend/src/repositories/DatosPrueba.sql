@@ -174,3 +174,36 @@ INSERT INTO domotica.consumos (ID_dispositivo, fecha, consumo, descripcion) VALU
 (213, '2025-06-01', 28, 'Consumo diario de termostato de habitación'),
 (215, '2025-06-02', 18, 'Consumo de horno');
 
+
+-- Insertar registros en la tabla consumos
+INSERT INTO domotica.consumos (ID_dispositivo, fecha, consumo, descripcion) VALUES
+(201, '2025-02-20', 15, 'Consumo diario de luz de sala'),
+(202, '2025-02-21', 30, 'Consumo diario de termostato'),
+(204, '2025-02-23', 5, 'Consumo de cafetera'),
+(205, '2025-02-24', 10, 'Consumo diario de luz de cocina'),
+(207, '2025-02-26', 45, 'Consumo de aire acondicionado'),
+(208, '2025-02-27', 60, 'Consumo diario de refrigerador'),
+(209, '2025-02-28', 12, 'Consumo diario de luz de habitación'),
+(212, '2025-02-28', 8, 'Consumo diario de luz exterior'), -- Ajustado a 28 de febrero
+(213, '2025-03-01', 28, 'Consumo diario de termostato de habitación'),
+(215, '2025-03-02', 18, 'Consumo de horno'),
+(201, '2025-03-01', 18, 'Consumo de luz de sala - día 1 de marzo'),
+(202, '2025-03-02', 32, 'Consumo de termostato - día 2 de marzo'),
+(204, '2025-03-03', 7, 'Consumo de cafetera - día 3 de marzo'),
+(205, '2025-03-04', 11, 'Consumo de luz de cocina - día 4 de marzo'),
+(207, '2025-03-05', 48, 'Consumo de aire acondicionado - día 5 de marzo'),
+(208, '2025-03-06', 65, 'Consumo de refrigerador - día 6 de marzo'),
+(209, '2025-03-07', 14, 'Consumo de luz de habitación - día 7 de marzo'),
+(211, '2025-03-08', 27, 'Consumo de lavadora - día 8 de marzo'),
+(212, '2025-03-09', 9, 'Consumo de luz exterior - día 9 de marzo'),
+(213, '2025-03-10', 30, 'Consumo de termostato de habitación - día 10 de marzo'),
+(201, '2025-03-11', 16, 'Consumo de luz de sala - día 11 de marzo'),
+(202, '2025-03-12', 35, 'Consumo de termostato - día 12 de marzo'),
+(204, '2025-03-13', 6, 'Consumo de cafetera - día 13 de marzo'),
+(205, '2025-03-14', 13, 'Consumo de luz de cocina - día 14 de marzo'),
+(207, '2025-03-15', 50, 'Consumo de aire acondicionado - día 15 de marzo'),
+(208, '2025-03-16', 70, 'Consumo de refrigerador - día 16 de marzo'),
+(209, '2025-03-17', 15, 'Consumo de luz de habitación - día 17 de marzo'),
+(211, '2025-03-18', 28, 'Consumo de lavadora - día 18 de marzo'),
+(212, '2025-03-19', 10, 'Consumo de luz exterior - día 19 de marzo'),
+(213, '2025-03-20', 33, 'Consumo de termostato de habitación - día 20 de marzo');

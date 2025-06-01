@@ -37,4 +37,33 @@ WHERE A.id_dispositivo = C.id_dispositivo AND B.id_usuario = C.id_usuario AND C.
 
 SELECT primer_nombre,primer_apellido,nombre FROM domotica.dispositivos_usuario  order by nombre
 
+SELECT B.nombre, SUM(A.consumo) AS Consumo_Total,EXTRACT(MONTH FROM(A.fecha)) as nro_mes,EXTRACT(YEAR FROM(A.fecha)) as nro_año
+FROM domotica.consumos A,domotica.dispositivos B 
+WHERE A.id_dispositivo = B.id_dispositivo 
+group by B.nombre,EXTRACT( Month From(A.fecha)),EXTRACT(year From(A.fecha))
+order by B.nombre
 
+CREATE VIEW domotica.consumo_mensual AS
+SELECT B.nombre, SUM(A.consumo) AS Consumo_Total,EXTRACT(MONTH FROM(A.fecha)) as nro_mes,EXTRACT(YEAR FROM(A.fecha)) as nro_año
+FROM domotica.consumos A,domotica.dispositivos B 
+WHERE A.id_dispositivo = B.id_dispositivo 
+group by B.nombre,EXTRACT( Month From(A.fecha)),EXTRACT(year From(A.fecha))
+order by B.nombre
+
+SELECT * from domotica.consumo_mensual
+
+CREATE VIEW domotica.consumo_anual AS
+SELECT B.nombre, SUM(A.consumo) AS Consumo_Total,EXTRACT(YEAR FROM(A.fecha)) as nro_año
+FROM domotica.consumos A,domotica.dispositivos B 
+WHERE A.id_dispositivo = B.id_dispositivo 
+group by B.nombre,EXTRACT(year From(A.fecha))
+order by B.nombre
+
+SELECT * from domotica.consumo_anual  
+
+CREATE VIEW domotica.Intrusiones_detectadas AS
+SELECT B.nombre,A.descripcion,A.nivel,A.fecha, A.hora
+From domotica.intrusiones A, domotica.dispositivos B
+where A.id_seguridad= B.id_dispositivo
+
+SELECT * from domotica.intrusiones_detectadas 
