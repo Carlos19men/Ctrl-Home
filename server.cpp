@@ -39,7 +39,7 @@ int main(){
     }
 
     //5.creamos un bucle infinito y empezamos a escuchar y recibir solicitudes 
-    std::cout << "Servidor corriendo http://localhost" << port << std::endl;
+    std::cout << "Servidor corriendo http://localhost:" << port << std::endl;
     while(true){
 
 
