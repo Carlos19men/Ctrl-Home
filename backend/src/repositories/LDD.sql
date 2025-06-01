@@ -8,11 +8,11 @@ create domain domotica.nivelAcceso as TEXT not null check (value in ('administra
 
 create domain domotica.tipoLlave as text not null check (value in ('temporal','permanente'));
 
-create domain domotica.estadoDispositivo as TEXT not null check (value in ('encendido','apagodo','en espera')); 
+create domain domotica.estadoDispositivo as TEXT not null check (value in ('encendido','apagado','en espera')); 
 
 create domain domotica.tipoDispositivo as TEXT not null check (value in ('iluminación','electrodomestico','climatización','seguridad'));
 
-create domain domotica.resultadoAcceso as TEXT not null check (value in ('consedido','denegado'));
+create domain domotica.resultadoAcceso as TEXT not null check (value in ('concedido','denegado'));
 
 create domain domotica.nivelIntrusion as TEXT not null check (value in ('bajo','medio','alto'));
 
@@ -47,6 +47,8 @@ create table domotica.dispositivos (
 	tipo domotica.tipoDispositivo 
 );
 
+alter table domotica.dispositivos add column estado domotica.estadoDispositivo default 'apagado'
+
 create table domotica.configuraciones (
 	ID_usuario int, 
 	ID_dispositivo int, 
@@ -68,6 +70,9 @@ create table domotica.Accesos_usuarios(
 	foreign key (ID_usuario) references domotica.usuarios (ID_usuario),
 	foreign key (ID_dispositivo) references domotica.dispositivos (ID_dispositivo)
 ); 
+
+alter table domotica.accesos_usuarios add column resultado domotica.resultadoAcceso 
+
 
 create table  domotica.iluminacion (
 	ID_iluminacion int primary key,
@@ -112,6 +117,8 @@ create table domotica.cronograma_dispositivo(
 	primary key (ID_dispositivo,dia_semana,hora),
 	foreign key (ID_dispositivo) references domotica.dispositivos(ID_dispositivo)
 );
+alter table domotica.cronograma_dispositivo add column accion domotica.estadoDispositivo 
+alter table domotica.cronograma_dispositivo alter column accion drop default   
 
 create table domotica.Accesos(
 	ID_dispositivo int,
@@ -141,16 +148,17 @@ drop table domotica.climatizacion;
 drop table domotica.iluminacion; 
 drop table domotica.Accesos_usuarios;
 drop table domotica.configuraciones;
-drop table domotica.dispositivos; 
+drop table domotica.dispositivos;
 drop table domotica.usuarios; 
 drop table domotica.Llaves_de_Acceso; 
+
+
 
 --en caso de borrar los dominios 
 drop domain domotica.nivelAcceso, domotica.tipoLlave, domotica.estadoDispositivo, domotica.tipoDispositivo,domotica.resultadoAcceso,domotica.nivelIntrusion,domotica.semana;
 
 --en caso de borrar la base de datos (pa que no se)
 drop database Ctrl_home;
-
 
 
 
