@@ -137,40 +137,55 @@ void handle_client(int client_fd) {
 }
 
 void start_server() {
+    //creamos el socket para el servidor 
     int server_fd = socket(AF_INET, SOCK_STREAM, 0);
+
+    //evalumos en caso de algun error 
     if (server_fd == 0) {
         perror("socket failed");
         exit(EXIT_FAILURE);
     }
 
+    //preparamos la firma para el servidor 
     int opt = 1;
     setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 
+    //preparamos la dirección de memoria 
     struct sockaddr_in address;
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = INADDR_ANY;
     address.sin_port = htons(PORT);
 
+    //enlazamos el servidor con la dirección de memoria asociada 
     if (bind(server_fd, (struct sockaddr*)&address, sizeof(address)) < 0) {
         perror("bind failed");
         exit(EXIT_FAILURE);
     }
 
-    if (listen(server_fd, 10) < 0) {
+    //escuchamos desde el puerto 
+    if (listen(server_fd, 30) < 0) {
         perror("listen");
         exit(EXIT_FAILURE);
     }
 
+    //mostramos un mensaje de salida 
     std::cout << "Servidor escuchando en http://localhost:" << PORT << std::endl;
 
+
+    //creamos un bucle infinito para escuchar constatemente por erl puerto 
     while (true) {
+        //establecemos el tamaño de nuestra dirección de memoria 
         int addrlen = sizeof(address);
+
+        //aceptamos el mensaje de cliente 
         int client_fd = accept(server_fd, (struct sockaddr*)&address, (socklen_t*)&addrlen);
         if (client_fd < 0) {
             perror("accept");
             continue;
         }
 
+        //creamos un bifurcación para que otro proceso pueda atender la request mientras que 
+        //el padre sigue recibiendo solicitudes 
         pid_t pid = fork();
         if (pid == 0) {
             close(server_fd);
@@ -184,7 +199,7 @@ void start_server() {
 
 int main() {
     signal(SIGCHLD, SIG_IGN); 
-
+    //                     | este es el tecer parametro la función lambda 
     router.add("GET", "/", [](int fd, const std::string&, const std::string&) {
         Router::send_response(fd, "200 OK", "text/html", "<h1>Hola desde C++</h1>");
     });
