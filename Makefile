@@ -13,8 +13,8 @@ INCLUDE_DIRS = -I$(SRC_DIR)
 # --- Archivos Fuente (.cpp) ---
 CPP_SOURCES = \
     $(SRC_DIR)/app.cpp \
-    $(SRC_DIR)/controllers/UserController.cpp \
-    $(SRC_DIR)/models/postgres/UserModel.cpp
+    $(wildcard $(SRC_DIR)/controllers/*.cpp) \
+    $(wildcard $(SRC_DIR)/models/postgres/*.cpp)
 
 # --- Archivos Objeto (.o) ---
 OBJECTS = \
@@ -46,11 +46,11 @@ $(OBJ_DIR)/app.o: $(SRC_DIR)/app.cpp | $(OBJ_DIR)
 	$(CXX) $(CXXFLAGS) $(INCLUDE_DIRS) -c $< -o $@
 
 $(OBJ_DIR)/controllers/UserController.o: $(SRC_DIR)/controllers/UserController.cpp | $(OBJ_DIR)/controllers
-	@echo "Compilando UserController.cpp -> $@"
+	@echo "Compilando controladores -> $@"
 	$(CXX) $(CXXFLAGS) $(INCLUDE_DIRS) -c $< -o $@
 
 $(OBJ_DIR)/models/postgres/UserModel.o: $(SRC_DIR)/models/postgres/UserModel.cpp | $(OBJ_DIR)/models/postgres
-	@echo "Compilando UserModel.cpp -> $@"
+	@echo "Compilando modelos -> $@"
 	$(CXX) $(CXXFLAGS) $(INCLUDE_DIRS) -c $< -o $@
 
 # --- Creación de Directorios ---
@@ -73,7 +73,7 @@ $(OBJ_DIR)/models/postgres:
 # --- Reglas de Ayuda ---
 run: $(TARGET)
 	@echo "----------------------------------------"
-	@echo "Ejecutando $(TARGET)"
+	@echo "Ejecutando Backend $(TARGET)"
 	$(TARGET)
 	@echo "----------------------------------------"
 
