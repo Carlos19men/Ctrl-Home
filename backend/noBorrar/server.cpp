@@ -4,7 +4,8 @@
 #include <unistd.h> 
 #include <cstring>
 
-//
+//importamos el modelo con el que se esté trabajando 
+
 
 void starServer(){
     //datos para el servidor 
