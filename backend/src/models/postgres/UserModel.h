@@ -11,9 +11,9 @@
 class UserModel {
     public:
         //metodo estaticos 
-        static int getAll(); 
-        static int getById(int id); 
-        static int getByRol(const std::string& rol); 
+        static void getAll(); 
+        static void getById(int id); 
+        static void getByRol(const std::string& rol); 
 
     private:
 
