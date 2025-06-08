@@ -6,8 +6,8 @@
 class UserController{
 
     public:
-        static int getAll();
-        static int getById(const std::string& req,const std::string& res);
+        static void getAll();
+        static void getById(const std::string& req,const std::string& res);
 
     private: 
         UserController() = delete; // Eliminar el constructor para que no sea instanciable
