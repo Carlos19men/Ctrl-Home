@@ -4,8 +4,9 @@
 #include <unistd.h> 
 #include <cstring>
 
-int main(){
+//
 
+void starServer(){
     //datos para el servidor 
     int server_fd; 
     struct sockaddr_in address; 
@@ -104,6 +105,11 @@ int main(){
     close(server_fd); 
     std::cout << "Socket cerrado." <<std::endl; 
 
+}
+
+int main(){
+
+    starServer(); 
 
     return 0; 
 }
