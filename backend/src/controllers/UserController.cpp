@@ -1,17 +1,47 @@
 #include "../../include/controllers/UserController.h"
 #include "../../include/models/UserModel.h"
+#include "../../json.hpp"
 #include <string>
 
-void UserController::getAll() {
-    UserModel::getAll();
+using json = nlohmann::json;
+
+json UserController::getAll() {
+    // Get users from model
+    json users = UserModel::getAll();
+    
+    // Create JSON response
+    json response = {
+        {"status", "success"},
+        {"data", users}
+    };
+    
+    return response;
 }
 
-void UserController::getById(const std::string& req, const std::string& res) {
-    // Aquí podrías extraer el ID del usuario de la solicitud 'req'
-    // y luego llamar al modelo para obtener el usuario por ID.
-    // Por simplicidad, asumimos que el ID es un número entero en la solicitud.
-    // Convertir la solicitud a un ID de usuario
-    UserModel::getById(0); 
+json UserController::getById(const std::string& req, const std::string& res) {
+    try {
+        // Parse the request JSON
+        json request = json::parse(req);
+        int userId = request["id"];
+        
+        // Get user from model
+        json user = UserModel::getById(userId);
+        
+        // Create JSON response
+        json response = {
+            {"status", "success"},
+            {"data", user}
+        };
+        
+        return response;
+    } catch (const std::exception& e) {
+        // Handle errors
+        json error = {
+            {"status", "error"},
+            {"message", e.what()}
+        };
+        return error;
+    }
 }
 
 

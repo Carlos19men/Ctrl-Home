@@ -1,9 +1,21 @@
 #include "../include/controllers/UserController.h"
+#include "../json.hpp"
 #include <iostream>
 
-int main(){
+using json = nlohmann::json;
 
-    UserController::getAll();
+int main() {
+    // Example of creating a JSON response
+    json response = {
+        {"status", "success"},
+        {"message", "Server is running"},
+        {"data", {
+            {"users", UserController::getAll()}
+        }}
+    };
 
-    return 0; 
+    // Print the JSON response
+    std::cout << response.dump(4) << std::endl;
+
+    return 0;
 }
