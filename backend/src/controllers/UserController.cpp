@@ -1,5 +1,5 @@
-#include "UserController.h"
-#include "../models/postgres/UserModel.h"
+#include "../../include/controllers/UserController.h"
+#include "../../include/models/UserModel.h"
 #include <string>
 
 void UserController::getAll() {
