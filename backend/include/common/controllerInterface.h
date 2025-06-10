@@ -5,7 +5,7 @@
 #include "response.h"
 
 // Clase base abstracta para todos los manejadores de solicitudes (controladores)
-class Icontroller {
+class IController {
 public:
     // El destructor virtual es crucial para una limpieza adecuada al eliminar objetos derivados
     // a través de un puntero a la clase base (ej., std::unique_ptr<Icontroller>)

@@ -1,5 +1,5 @@
 //instaciamos los cuerpos de los metodos estaticos del userModel.h
-#include "UserModel.h"
+/*#include "../../../include/models/UserModel.h"
 #include <iostream>
 
 
@@ -14,4 +14,4 @@ void UserModel::getById(int id){
 
 void UserModel::getByRol(const std::string& rol){
     std::cout << "Obteniendo todos los usuarios que tengan el rol de: "<< rol <<std::endl; 
-}
+}*/

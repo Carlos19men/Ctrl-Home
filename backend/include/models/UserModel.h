@@ -3,17 +3,18 @@
 
 #include <string>
 #include <vector> // Si el modelo gestionara una lista de usuarios, por ejemplo
-#include <functional> // Para usar std::function para callbacks/eventos
+#include "../json.hpp"
 
+using json = nlohmann::json;
 
 //esta clase es la que se conecta directamente con la base de datos 
 
 class UserModel {
     public:
         //metodo estaticos 
-        static void getAll(); 
-        static void getById(int id); 
-        static void getByRol(const std::string& rol); 
+        static json getAll(); 
+        static json getById(int id); 
+        static json getByRol(const std::string& rol); 
 
     private:
 

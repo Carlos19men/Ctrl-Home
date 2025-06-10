@@ -1,18 +1,21 @@
 // importamos dependencias para las validaciones
 #ifndef ClassUserController
-#include <string> 
+#define ClassUserController
 
+#include <string>
+#include "../json.hpp"
 
-class UserController{
+using json = nlohmann::json;
 
-    public:
-        static void getAll();
-        static void getById(const std::string& req,const std::string& res);
+class UserController {
+public:
+    static json getAll();
+    static json getById(const std::string& req, const std::string& res);
 
-    private: 
-        UserController() = delete; // Eliminar el constructor para que no sea instanciable
-        UserController(const UserController&) = delete; // Eliminar el constructor de copia
-        UserController& operator=(const UserController&) = delete; // Eliminar el operador de asignación
+private: 
+    UserController() = delete; // Eliminar el constructor para que no sea instanciable
+    UserController(const UserController&) = delete; // Eliminar el constructor de copia
+    UserController& operator=(const UserController&) = delete; // Eliminar el operador de asignación
 };
 
 #endif

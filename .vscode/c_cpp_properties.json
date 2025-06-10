@@ -4,9 +4,7 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/backend",
-                "${workspaceFolder}/backend",
-                "${workspaceFolder}/backend/src"
+                "${workspaceFolder}/backend/bin"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
