@@ -1,21 +1,31 @@
-#include "../include/controllers/UserController.h"
-#include "../json.hpp"
-#include <iostream>
-
-using json = nlohmann::json;
+// En src/app.cpp
+#include "core/Broker.h" // Asegúrate de que la ruta sea correcta
 
 int main() {
-    // Example of creating a JSON response
-    json response = {
-        {"status", "success"},
-        {"message", "Server is running"},
-        {"data", {
-            {"users", UserController::getAll()}
-        }}
-    };
+    const std::string BROKER_ADDRESS = "tcp://localhost:1883"; // Verifica que esta sea la IP y puerto correctos
+    const std::string CLIENT_ID = "mi_aplicacion_cliente_unico_001"; // Debe ser único para cada cliente conectado
 
-    // Print the JSON response
-    std::cout << response.dump(4) << std::endl;
+    try {
+        Broker myBroker(BROKER_ADDRESS, CLIENT_ID);
+
+        // --- ¡IMPORTANTE! Primero conectar ---
+        myBroker.connect(); // Esto intentará conectar al broker
+
+        // Luego de conectar, puedes publicar o suscribir
+        myBroker.publish("test/topic", "Hola desde C++!", 1, false);
+
+        // ... (resto de tu lógica, suscripciones, etc.) ...
+
+        // Antes de terminar, desconectar
+        myBroker.disconnect();
+
+    } catch (const mqtt::exception& exc) {
+        std::cerr << "Excepción crítica en main: " << exc.what() << std::endl;
+        return 1; // Devuelve un código de error
+    } catch (const std::exception& exc) { // Captura cualquier otra excepción estándar
+        std::cerr << "Otra excepción en main: " << exc.what() << std::endl;
+        return 1;
+    }
 
     return 0;
 }

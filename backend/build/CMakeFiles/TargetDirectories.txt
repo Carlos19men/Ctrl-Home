@@ -1,0 +1,3 @@
+/home/oem/Desktop/Ctrl+Home/backend/build/CMakeFiles/mqtt_app.dir
+/home/oem/Desktop/Ctrl+Home/backend/build/CMakeFiles/edit_cache.dir
+/home/oem/Desktop/Ctrl+Home/backend/build/CMakeFiles/rebuild_cache.dir
