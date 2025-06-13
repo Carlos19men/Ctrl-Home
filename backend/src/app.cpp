@@ -124,9 +124,51 @@ int main() {
                 }
             } else if (topic == "api/usuarios/login") {
                 if (message.find("admin") != std::string::npos || message.find("usuario") != std::string::npos) {
-                    std::string nombreUsuario = message.substr(message.find(":") + 1); // Extraer el nombre del usuario
-                    nombreUsuario.erase(0, nombreUsuario.find_first_not_of(" ")); // Eliminar espacios al inicio
-                    std::cout << "Autenticación exitosa: '" << nombreUsuario << "'" << std::endl;
+                    // Extraer el nombre de usuario y contraseña
+                    size_t pos_rol = message.find(":");
+                    size_t pos_pass = message.find(":", pos_rol + 1);
+                    
+                    if (pos_rol != std::string::npos && pos_pass != std::string::npos) {
+                        std::string rol = message.substr(0, pos_rol);
+                        std::string username = message.substr(pos_rol + 1, pos_pass - (pos_rol + 1));
+                        std::string password = message.substr(pos_pass + 1);
+                        
+                        // Eliminar espacios en blanco
+                        username.erase(0, username.find_first_not_of(" "));
+                        username.erase(username.find_last_not_of(" ") + 1);
+                        password.erase(0, password.find_first_not_of(" "));
+                        
+                        std::cout << "Intento de login - Rol: '" << rol << "', Usuario: '" << username << "'" << std::endl;
+                        
+                        // Validación simple de credenciales
+                        bool loginExitoso = false;
+                        std::string response;
+                        
+                        if (rol == "admin") {
+                            if (username == "carlos" && password == "sasa") {
+                                loginExitoso = true;
+                                response = "Autenticación exitosa para administrador: " + username;
+                                std::cout << "✓ Login exitoso como administrador" << std::endl;
+                            } else {
+                                response = "Error de autenticación: Credenciales de administrador inválidas";
+                                std::cout << "✗ Login fallido como administrador" << std::endl;
+                            }
+                        } else if (rol == "usuario") {
+                            if (username == "samuel" && password == "sa") {
+                                loginExitoso = true;
+                                response = "Autenticación exitosa para usuario: " + username;
+                                std::cout << "✓ Login exitoso como usuario normal" << std::endl;
+                            } else {
+                                response = "Error de autenticación: Credenciales de usuario inválidas";
+                                std::cout << "✗ Login fallido como usuario normal" << std::endl;
+                            }
+                        } else {
+                            response = "Error: Rol no válido. Use 'admin' o 'usuario'";
+                            std::cout << "✗ Rol no válido" << std::endl;
+                        }
+                    } else {
+                        std::cout << "Formato de login inválido. Use: rol: usuario: contraseña" << std::endl;
+                    }
                 } else {
                     std::cout << "Acceso denegado: Solo admin y usuario pueden autenticarse." << std::endl;
                 }
