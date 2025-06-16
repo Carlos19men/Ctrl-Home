@@ -1,38 +1,96 @@
+/* General */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f6fa;
+}
+
 .App {
-  text-align: center;
+  display: flex;
+  height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background-color: #dbeafe; /* azul claro */
+  padding: 20px;
+  color: #0f172a;
   display: flex;
   flex-direction: column;
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+
+.sidebar button {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 16px;
+  text-align: left;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.sidebar button:hover {
+  color: #1d4ed8;
+}
+
+/* Main content */
+.main {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.main h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.main p {
+  color: #6b7280;
+}
+
+/* Device Cards */
+.device-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.device-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.device-card h3 {
+  margin: 0 0 8px 0;
+}
+
+.device-card p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.device-card .status {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.device-card input[type="checkbox"] {
+  transform: scale(1.2);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
