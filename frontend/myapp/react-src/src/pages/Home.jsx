@@ -1,5 +1,6 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar';
+import Topbar from '../components/Topbar';
 import DeviceCard from '../components/DeviceCard';
 
 const Home = () => {
@@ -14,7 +15,9 @@ const Home = () => {
           <DeviceCard name="Bocina JBL" room="Sala de estar" status="65%" />
           <DeviceCard name="Lámpara PHILLIPS" room="Dormitorio" />
         </div>
+        
       </main>
+      <Topbar />
     </div>
   );
 };

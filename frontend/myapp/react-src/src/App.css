@@ -1,8 +1,17 @@
 /* General */
+:root{
+    --ff-primary: "Kantumruy", sans-serif;
+    --ff-secundary:"Lexend", sans-serif;
+    --clr-azul-1: #D4DFF2;
+    --clr-azul-2: #295AA8;
+    --clr-azul-3: #0F151E;
+    --clr-verde: #3AD083;
+}
+
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f6fa;
+  font-family: var(--ff-secundary);
+  background-color: var(--clr-azul-1); 
 }
 
 .App {
@@ -12,12 +21,11 @@ body {
 
 /* Sidebar */
 .sidebar {
-  width: 220px;
-  background-color: #dbeafe; /* azul claro */
+  width: 322px;
   padding: 20px;
-  color: #0f172a;
+  color: #353535;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .sidebar h2 {
@@ -35,20 +43,20 @@ body {
   cursor: pointer;
 }
 
-.sidebar button:hover {
-  color: #1d4ed8;
-}
-
 /* Main content */
 .main {
-  flex: 1;
+  flex-shrink:0 ;
   padding: 30px;
   overflow-y: auto;
+  width: 1118px;
+  background-color: #ffffff;
+  border-radius: 50px 0 0 50px;
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.25);
 }
 
 .main h1 {
   font-size: 24px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .main p {
@@ -94,3 +102,11 @@ body {
   transform: scale(1.2);
 }
 
+/* Top Bar */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 50px;
+  color: white;
+}
