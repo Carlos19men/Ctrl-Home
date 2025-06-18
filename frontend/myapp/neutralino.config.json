@@ -26,11 +26,11 @@
     "extensionsPath": "/extensions/",
     "resourcesPath": "/react-src/build/",
     "frontendLibrary": {
-      "patchFile": "/react-src/public/index.html",
+      "patchFile": "/react-src/index.html",
       "devUrl": "http://localhost:3000",
       "projectPath": "/react-src/",
       "initCommand": "npm install",
-      "devCommand": "npm run start",
+      "devCommand": "npm run dev",
       "buildCommand": "npm run build",
       "waitTimeout": 20000
     },
