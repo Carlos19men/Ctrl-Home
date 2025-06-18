@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* General */
 :root{
     --ff-primary: "Kantumruy", sans-serif;
