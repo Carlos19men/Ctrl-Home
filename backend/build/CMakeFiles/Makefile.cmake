@@ -7,34 +7,19 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "/home/samuel/Escritorio/Ctrl-Home/backend/CMakeLists.txt"
+  "/home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/CMakeLists.txt"
   "CMakeFiles/3.28.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.28.3/CMakeSystem.cmake"
-  "/usr/lib/x86_64-linux-gnu/cmake/PahoMqttCpp/FindPahoMqttC.cmake"
-  "/usr/lib/x86_64-linux-gnu/cmake/PahoMqttCpp/PahoMqttCppConfig.cmake"
-  "/usr/lib/x86_64-linux-gnu/cmake/PahoMqttCpp/PahoMqttCppConfigVersion.cmake"
-  "/usr/lib/x86_64-linux-gnu/cmake/PahoMqttCpp/PahoMqttCppTargets-none.cmake"
-  "/usr/lib/x86_64-linux-gnu/cmake/PahoMqttCpp/PahoMqttCppTargets.cmake"
   "/usr/share/cmake-3.28/Modules/CMakeCXXInformation.cmake"
   "/usr/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake"
-  "/usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake"
   "/usr/share/cmake-3.28/Modules/CMakeGenericSystem.cmake"
   "/usr/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake"
   "/usr/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake"
   "/usr/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake"
   "/usr/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake"
-  "/usr/share/cmake-3.28/Modules/CheckCXXSourceCompiles.cmake"
-  "/usr/share/cmake-3.28/Modules/CheckIncludeFileCXX.cmake"
-  "/usr/share/cmake-3.28/Modules/CheckLibraryExists.cmake"
   "/usr/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
   "/usr/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake"
   "/usr/share/cmake-3.28/Modules/Compiler/GNU.cmake"
-  "/usr/share/cmake-3.28/Modules/FindOpenSSL.cmake"
-  "/usr/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake"
-  "/usr/share/cmake-3.28/Modules/FindPackageMessage.cmake"
-  "/usr/share/cmake-3.28/Modules/FindPkgConfig.cmake"
-  "/usr/share/cmake-3.28/Modules/FindThreads.cmake"
-  "/usr/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake"
   "/usr/share/cmake-3.28/Modules/Platform/Linux-GNU-CXX.cmake"
   "/usr/share/cmake-3.28/Modules/Platform/Linux-GNU.cmake"
   "/usr/share/cmake-3.28/Modules/Platform/Linux-Initialize.cmake"
@@ -55,5 +40,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/mqtt_app.dir/DependInfo.cmake"
+  "CMakeFiles/ctrl_home_integrated.dir/DependInfo.cmake"
   )

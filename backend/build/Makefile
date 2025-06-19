@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/samuel/Escritorio/Ctrl-Home/backend
+CMAKE_SOURCE_DIR = /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/samuel/Escritorio/Ctrl-Home/backend/build
+CMAKE_BINARY_DIR = /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/samuel/Escritorio/Ctrl-Home/backend/build/CMakeFiles /home/samuel/Escritorio/Ctrl-Home/backend/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/build/CMakeFiles /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/samuel/Escritorio/Ctrl-Home/backend/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -117,48 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named mqtt_app
+# Target rules for targets named ctrl_home_integrated
 
 # Build rule for target.
-mqtt_app: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mqtt_app
-.PHONY : mqtt_app
+ctrl_home_integrated: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ctrl_home_integrated
+.PHONY : ctrl_home_integrated
 
 # fast build rule for target.
-mqtt_app/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mqtt_app.dir/build.make CMakeFiles/mqtt_app.dir/build
-.PHONY : mqtt_app/fast
-
-src/app.o: src/app.cpp.o
-.PHONY : src/app.o
-
-# target to build an object file
-src/app.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mqtt_app.dir/build.make CMakeFiles/mqtt_app.dir/src/app.cpp.o
-.PHONY : src/app.cpp.o
-
-src/app.i: src/app.cpp.i
-.PHONY : src/app.i
-
-# target to preprocess a source file
-src/app.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mqtt_app.dir/build.make CMakeFiles/mqtt_app.dir/src/app.cpp.i
-.PHONY : src/app.cpp.i
-
-src/app.s: src/app.cpp.s
-.PHONY : src/app.s
-
-# target to generate assembly for a file
-src/app.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mqtt_app.dir/build.make CMakeFiles/mqtt_app.dir/src/app.cpp.s
-.PHONY : src/app.cpp.s
+ctrl_home_integrated/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ctrl_home_integrated.dir/build.make CMakeFiles/ctrl_home_integrated.dir/build
+.PHONY : ctrl_home_integrated/fast
 
 src/core/Broker.o: src/core/Broker.cpp.o
 .PHONY : src/core/Broker.o
 
 # target to build an object file
 src/core/Broker.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mqtt_app.dir/build.make CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ctrl_home_integrated.dir/build.make CMakeFiles/ctrl_home_integrated.dir/src/core/Broker.cpp.o
 .PHONY : src/core/Broker.cpp.o
 
 src/core/Broker.i: src/core/Broker.cpp.i
@@ -166,7 +142,7 @@ src/core/Broker.i: src/core/Broker.cpp.i
 
 # target to preprocess a source file
 src/core/Broker.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mqtt_app.dir/build.make CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ctrl_home_integrated.dir/build.make CMakeFiles/ctrl_home_integrated.dir/src/core/Broker.cpp.i
 .PHONY : src/core/Broker.cpp.i
 
 src/core/Broker.s: src/core/Broker.cpp.s
@@ -174,7 +150,7 @@ src/core/Broker.s: src/core/Broker.cpp.s
 
 # target to generate assembly for a file
 src/core/Broker.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mqtt_app.dir/build.make CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ctrl_home_integrated.dir/build.make CMakeFiles/ctrl_home_integrated.dir/src/core/Broker.cpp.s
 .PHONY : src/core/Broker.cpp.s
 
 src/core/data/SensorData.o: src/core/data/SensorData.cpp.o
@@ -182,7 +158,7 @@ src/core/data/SensorData.o: src/core/data/SensorData.cpp.o
 
 # target to build an object file
 src/core/data/SensorData.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mqtt_app.dir/build.make CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ctrl_home_integrated.dir/build.make CMakeFiles/ctrl_home_integrated.dir/src/core/data/SensorData.cpp.o
 .PHONY : src/core/data/SensorData.cpp.o
 
 src/core/data/SensorData.i: src/core/data/SensorData.cpp.i
@@ -190,7 +166,7 @@ src/core/data/SensorData.i: src/core/data/SensorData.cpp.i
 
 # target to preprocess a source file
 src/core/data/SensorData.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mqtt_app.dir/build.make CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ctrl_home_integrated.dir/build.make CMakeFiles/ctrl_home_integrated.dir/src/core/data/SensorData.cpp.i
 .PHONY : src/core/data/SensorData.cpp.i
 
 src/core/data/SensorData.s: src/core/data/SensorData.cpp.s
@@ -198,8 +174,32 @@ src/core/data/SensorData.s: src/core/data/SensorData.cpp.s
 
 # target to generate assembly for a file
 src/core/data/SensorData.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mqtt_app.dir/build.make CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ctrl_home_integrated.dir/build.make CMakeFiles/ctrl_home_integrated.dir/src/core/data/SensorData.cpp.s
 .PHONY : src/core/data/SensorData.cpp.s
+
+src/main_integrated.o: src/main_integrated.cpp.o
+.PHONY : src/main_integrated.o
+
+# target to build an object file
+src/main_integrated.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ctrl_home_integrated.dir/build.make CMakeFiles/ctrl_home_integrated.dir/src/main_integrated.cpp.o
+.PHONY : src/main_integrated.cpp.o
+
+src/main_integrated.i: src/main_integrated.cpp.i
+.PHONY : src/main_integrated.i
+
+# target to preprocess a source file
+src/main_integrated.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ctrl_home_integrated.dir/build.make CMakeFiles/ctrl_home_integrated.dir/src/main_integrated.cpp.i
+.PHONY : src/main_integrated.cpp.i
+
+src/main_integrated.s: src/main_integrated.cpp.s
+.PHONY : src/main_integrated.s
+
+# target to generate assembly for a file
+src/main_integrated.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ctrl_home_integrated.dir/build.make CMakeFiles/ctrl_home_integrated.dir/src/main_integrated.cpp.s
+.PHONY : src/main_integrated.cpp.s
 
 # Help Target
 help:
@@ -209,16 +209,16 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... mqtt_app"
-	@echo "... src/app.o"
-	@echo "... src/app.i"
-	@echo "... src/app.s"
+	@echo "... ctrl_home_integrated"
 	@echo "... src/core/Broker.o"
 	@echo "... src/core/Broker.i"
 	@echo "... src/core/Broker.s"
 	@echo "... src/core/data/SensorData.o"
 	@echo "... src/core/data/SensorData.i"
 	@echo "... src/core/data/SensorData.s"
+	@echo "... src/main_integrated.o"
+	@echo "... src/main_integrated.i"
+	@echo "... src/main_integrated.s"
 .PHONY : help
 
 
