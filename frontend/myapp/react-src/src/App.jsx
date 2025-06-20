@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
+import LoginRegister from './pages/LoginRegister';
 import Dashboard from './pages/Dashboard';
 import Devices from './pages/Devices';
 import Security from './pages/Security';
@@ -53,6 +54,14 @@ function App() {
       <div className="App">
         <Routes>
           <Route 
+            path="/loginregister" 
+            element={
+              isAuthenticated ? 
+              <Navigate to="/dashboard" replace /> : 
+              <LoginRegister />
+            } 
+          />
+          <Route 
             path="/login" 
             element={
               isAuthenticated ? 
@@ -65,7 +74,7 @@ function App() {
             element={
               isAuthenticated ? 
               <Dashboard user={user} onLogout={handleLogout} /> : 
-              <Navigate to="/login" replace />
+              <Navigate to="/loginregister" replace />
             } 
           />
           <Route 
@@ -73,7 +82,7 @@ function App() {
             element={
               isAuthenticated ? 
               <Devices user={user} onLogout={handleLogout} /> : 
-              <Navigate to="/login" replace />
+              <Navigate to="/loginregister" replace />
             } 
           />
           <Route 
@@ -81,7 +90,7 @@ function App() {
             element={
               isAuthenticated ? 
               <Security user={user} onLogout={handleLogout} /> : 
-              <Navigate to="/login" replace />
+              <Navigate to="/loginregister" replace />
             } 
           />
           <Route 
@@ -89,7 +98,7 @@ function App() {
             element={
               isAuthenticated ? 
               <Settings user={user} onLogout={handleLogout} /> : 
-              <Navigate to="/login" replace />
+              <Navigate to="/loginregister" replace />
             } 
           />
           <Route 
@@ -97,7 +106,7 @@ function App() {
             element={
               isAuthenticated ? 
               <Navigate to="/dashboard" replace /> : 
-              <Navigate to="/login" replace />
+              <Navigate to="/loginregister" replace />
             } 
           />
         </Routes>
