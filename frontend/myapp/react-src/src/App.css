@@ -2,12 +2,16 @@
 
 /* General */
 :root{
-    --ff-primary: "Kantumruy", sans-serif;
+    --ff-primary: "Kantumruy Pro", sans-serif;
     --ff-secundary:"Lexend", sans-serif;
     --clr-azul-1: #D4DFF2;
     --clr-azul-2: #295AA8;
     --clr-azul-3: #0F151E;
     --clr-verde: #3AD083;
+}
+
+*{
+   box-sizing: border-box;
 }
 
 body {
@@ -18,7 +22,8 @@ body {
 
 .App {
   display: flex;
-  height: 100vh;
+   height: 100vh;
+  overflow: hidden;
 }
 
 /* Sidebar */
@@ -50,7 +55,6 @@ body {
   flex-shrink:0 ;
   padding: 30px;
   overflow-y: auto;
-  width: 1118px;
   background-color: #ffffff;
   border-radius: 50px 0 0 50px;
   box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.25);
@@ -104,11 +108,3 @@ body {
   transform: scale(1.2);
 }
 
-/* Top Bar */
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 50px;
-  color: white;
-}
