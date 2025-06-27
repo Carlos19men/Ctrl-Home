@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from './pages/Home';
 import LoginRegister from './pages/LoginRegister';
+import Login from './pages/Login';
 import Notifications from './pages/Notifications';
 import Security from './pages/Security';
 import Energy from './pages/Energy';
@@ -14,6 +15,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<LoginRegister />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/security" element={<Security />} />

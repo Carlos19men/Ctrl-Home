@@ -1,10 +1,5 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import HomeIcon from '../assets/icons/material-symbols_home-rounded.svg';
-import NotificationIcon from '../assets/icons/mingcute_notification-fill.svg';
-import SecurityIcon from '../assets/icons/mdi_security-lock.svg';
-import EnergyIcon from '../assets/icons/ic_baseline-energy-savings-leaf.svg';
-import SettingsIcon from '../assets/icons/iconamoon_settings-fill.svg';
 
 function Sidebar(){
     const navigate = useNavigate();
@@ -54,27 +49,27 @@ function Sidebar(){
 
             {/* Menú de navegación */}
             <div className="w-10 h-10 left-[32px] top-[308px] absolute overflow-hidden cursor-pointer" onClick={GoToHome}>
-                <img src={HomeIcon} alt="Home" className="w-7 h-7 left-[6.67px] top-[5.83px] absolute" />
+                <img src="/assets/icons/material-symbols_home-rounded.svg" alt="Home" className="w-7 h-7 left-[6.67px] top-[5.83px] absolute" />
             </div>
             <div className="left-[75px] top-[315px] absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend'] cursor-pointer" onClick={GoToHome}>Inicio</div>
 
             <div className="w-10 h-10 left-[32px] top-[397px] absolute overflow-hidden cursor-pointer" onClick={GoToNotifications}>
-                <img src={NotificationIcon} alt="Notifications" className="w-7 h-8 left-[5.10px] top-[3.33px] absolute" />
+                <img src="/assets/icons/mingcute_notification-fill.svg" alt="Notifications" className="w-7 h-8 left-[5.10px] top-[3.33px] absolute" />
             </div>
             <div className="left-[75px] top-[400px] absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend'] cursor-pointer" onClick={GoToNotifications}>Notificaciones</div>
 
             <div className="w-10 h-10 left-[32px] top-[481px] absolute overflow-hidden cursor-pointer" onClick={GoToSecurity}>
-                <img src={SecurityIcon} alt="Security" className="w-7 h-9 left-[5px] top-[1.67px] absolute" />
+                <img src="/assets/icons/mdi_security-lock.svg" alt="Security" className="w-7 h-9 left-[5px] top-[1.67px] absolute" />
             </div>
             <div className="left-[75px] top-[485px] absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend'] cursor-pointer" onClick={GoToSecurity}>Seguridad</div>
 
             <div className="w-10 h-10 left-[32px] top-[565px] absolute overflow-hidden cursor-pointer" onClick={GoToEnergy}>
-                <img src={EnergyIcon} alt="Energy" className="w-7 h-7 left-[5px] top-[5px] absolute" />
+                <img src="/assets/icons/ic_baseline-energy-savings-leaf.svg" alt="Energy" className="w-7 h-7 left-[5px] top-[5px] absolute" />
             </div>
             <div className="left-[75px] top-[558px] absolute justify-start text-neutral-700 text-base font-normal font-['Lexend'] cursor-pointer" onClick={GoToEnergy}>Ahorro <br/>Energético</div>
 
             <div className="w-10 h-10 left-[32px] top-[718px] absolute overflow-hidden cursor-pointer" onClick={GoToSettings}>
-                <img src={SettingsIcon} alt="Settings" className="w-8 h-8 left-[4px] top-[3.33px] absolute" />
+                <img src="/assets/icons/iconamoon_settings-fill.svg" alt="Settings" className="w-8 h-8 left-[4px] top-[3.33px] absolute" />
             </div>
             <div className="left-[75px] top-[725px] absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend'] cursor-pointer" onClick={GoToSettings}>Configuración</div>
         </div>
