@@ -1,12 +1,13 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
 
-const Notifications = () => { 
+const Settings = () => { 
     return(
         <div className="App">
             <Sidebar />
-            <div>Notifications</div>
+            <div>Settings</div>
         </div>
     );
+    
 }
-export default Notifications;
+export default Settings;

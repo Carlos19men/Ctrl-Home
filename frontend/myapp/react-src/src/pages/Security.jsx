@@ -3,6 +3,11 @@ import Sidebar from "../components/Sidebar";
 
 const Security = () => { 
     return(
-        <div>Security</div>
+        <div className="App">
+            <Sidebar />
+            <div>Security</div>
+        </div>
     );
+    
 }
+export default Security;
