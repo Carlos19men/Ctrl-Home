@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Home from './pages/Home';
 import LoginRegister from './pages/LoginRegister';
 import Login from './pages/Login';
@@ -17,28 +17,30 @@ function FloatingText({ location }) {
         return { top: '28%', x: 0, y: 0 };
       case '/login':
         return { top: '12%', x: 0, y: 0 };
+      case '/home':
+        return { top: '12%', x: 0, y: 0 };
       default:
         return { top: '28%', x: 0, y: 0 };
     }
   };
 
   const position = getTextPosition();
+  const isHome = location.pathname === '/home';
 
   return (
     <motion.div 
       className="w-146 h-44 left-1/2 transform -translate-x-1/2 absolute z-50 pointer-events-none"
-      layout
-      layoutId="floating-text"
       initial={false}
       animate={{ 
         top: position.top,
         x: position.x, 
-        y: position.y 
+        y: position.y,
+        opacity: isHome ? 0 : 1
       }}
       transition={{ 
         duration: 0.8, 
         ease: "easeInOut",
-        layout: { duration: 0.8, ease: "easeInOut" }
+        opacity: { duration: 0.6, ease: "easeInOut" }
       }}
     >
       <div className="left-0 top-0 absolute justify-start text-8xl font-bold select-none font-primary text-azul-2">

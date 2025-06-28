@@ -7,6 +7,7 @@
     --clr-azul-1: #D4DFF2;
     --clr-azul-2: #295AA8;
     --clr-azul-3: #0F151E;
+    --clr-gris-1: #D9D9D9;
     --clr-verde: #3AD083;
 }
 
@@ -52,6 +53,10 @@
 
 .bg-azul-3 {
   background-color: var(--clr-azul-3);
+}
+
+.bg-gris-1 {
+  background-color: var(--clr-gris-1);
 }
 
 .bg-verde {

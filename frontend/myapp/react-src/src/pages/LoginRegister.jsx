@@ -16,7 +16,7 @@ function LoginRegister() {
         <motion.img
             src="/assets/circ-izq-1.svg"
             alt="bg izq"
-            className="w-[60%] h-[116%] left-[-12%] top-0 absolute"
+            className="w-[60%] h-[116%] left-[-12%] top-0 absolute select-none"
             draggable={false}
             initial={{ x: '-50vw', opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -26,7 +26,7 @@ function LoginRegister() {
         <motion.img
             src="/assets/circ-der-1.svg"
             alt="bg der"
-            className="w-[60%] h-[116%] right-[-12%] top-[-15%] absolute"
+            className="w-[60%] h-[116%] right-[-12%] top-[-15%] absolute select-none"
             draggable={false}
             initial={{ x: '50vw', opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
