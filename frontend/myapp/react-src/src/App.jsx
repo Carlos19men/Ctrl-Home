@@ -11,6 +11,19 @@ import { AnimatePresence, motion } from 'framer-motion';
 import './App.css';
 
 function FloatingText({ location }) {
+  const [lastPath, setLastPath] = useState(location.pathname);
+  const [isTransitioningFromLogin, setIsTransitioningFromLogin] = useState(false);
+
+  useEffect(() => {
+    // Si viene de login y va a home, marcar la transición
+    if (lastPath === '/login' && location.pathname === '/home') {
+      setIsTransitioningFromLogin(true);
+    } else {
+      setIsTransitioningFromLogin(false);
+    }
+    setLastPath(location.pathname);
+  }, [location.pathname, lastPath]);
+
   const getTextPosition = () => {
     switch (location.pathname) {
       case '/':
@@ -20,22 +33,25 @@ function FloatingText({ location }) {
       case '/home':
         return { top: '12%', x: 0, y: 0 };
       default:
-        return { top: '28%', x: 0, y: 0 };
+        return { top: '12%', x: 0, y: 0 };
     }
   };
 
   const position = getTextPosition();
-  const isHome = location.pathname === '/home';
+  const shouldShow = location.pathname === '/' || location.pathname === '/login';
+  
+  // Si está en transición desde login, mantener posición de login
+  const finalTop = isTransitioningFromLogin ? '12%' : position.top;
 
   return (
     <motion.div 
       className="w-146 h-44 left-1/2 transform -translate-x-1/2 absolute z-50 pointer-events-none"
       initial={false}
       animate={{ 
-        top: position.top,
+        top: finalTop,
         x: position.x, 
         y: position.y,
-        opacity: isHome ? 0 : 1
+        opacity: shouldShow ? 1 : 0
       }}
       transition={{ 
         duration: 0.8, 
