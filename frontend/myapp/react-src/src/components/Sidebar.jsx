@@ -58,7 +58,7 @@ function Sidebar(){
             />
 
             {/* Título */}
-            <div className="left-[21%] top-[150px] absolute justify-start text-blue-800 text-3xl font-bold font-['Kantumruy Pro']">Ctrl+Home</div>
+            <div className="left-[21%] top-[150px] absolute justify-start text-azul-2 text-3xl font-bold font-['Kantumruy Pro']">Ctrl+Home</div>
 
             {/* Menú de navegación */}
             <div className="w-10 h-10 left-[32px] top-[308px] absolute overflow-hidden cursor-pointer" onClick={GoToHome}>

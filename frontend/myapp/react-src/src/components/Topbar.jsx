@@ -33,7 +33,7 @@ function Topbar({ onSectionChange }) {
       
       {/* Barra azul dinámica que se mueve según la selección */}
       <div 
-        className="w-48 h-14 absolute bg-blue-800 rounded-2xl transition-all duration-300 ease-in-out z-10"
+        className="w-48 h-14 absolute bg-azul-2 rounded-2xl transition-all duration-300 ease-in-out z-10"
         style={{
           left: getSelectedPosition()
         }}
@@ -65,7 +65,7 @@ function Topbar({ onSectionChange }) {
           className={`${section.className} top-[17px] absolute justify-start text-xl font-normal font-['Lexend'] cursor-pointer transition-colors duration-300 z-20 ${
             selectedSection === section.id 
             ? 'text-zinc-100' 
-            : 'text-gray-900 hover:text-blue-800'
+            : 'text-gray-900 hover:text-azul-2'
           }`}
           onClick={() => handleSectionClick(section.id)}
         >

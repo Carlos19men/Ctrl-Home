@@ -187,7 +187,7 @@ function Home() {
           <div className="flex justify-between items-center mt-5">
             <Topbar onSectionChange={setCurrentSection} />
             {/*Para simular la foto de perfil del usuario */}
-            <div className="w-14 h-14 rounded-full bg-blue-800 flex items-center justify-center text-white text-xl font-bold mr-25 mt-2"></div>
+            <div className="w-14 h-14 rounded-full bg-azul-2 flex items-center justify-center text-white text-xl font-bold mr-25 mt-2"></div>
           </div>
 
           {renderSectionContent()}
