@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Home from './pages/Home';
 import LoginRegister from './pages/LoginRegister';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import Notifications from './pages/Notifications';
 import Security from './pages/Security';
 import Energy from './pages/Energy';
@@ -30,6 +31,8 @@ function FloatingText({ location }) {
         return { top: '28%', x: 0, y: 0 };
       case '/login':
         return { top: '12%', x: 0, y: 0 };
+      case '/register':
+        return { top: 0, x: 0, y: 0 };
       case '/home':
         return { top: '12%', x: 0, y: 0 };
       default:
@@ -38,7 +41,7 @@ function FloatingText({ location }) {
   };
 
   const position = getTextPosition();
-  const shouldShow = location.pathname === '/' || location.pathname === '/login';
+  const shouldShow = location.pathname === '/' || location.pathname === '/login' || location.pathname === '/register';
   
   // Si está en transición desde login, mantener posición de login
   const finalTop = isTransitioningFromLogin ? '12%' : position.top;
@@ -77,6 +80,7 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<LoginRegister />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/security" element={<Security />} />

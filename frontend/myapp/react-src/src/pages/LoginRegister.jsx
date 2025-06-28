@@ -9,6 +9,10 @@ function LoginRegister() {
     navigate('/login');
   };
 
+  const handleGoToRegister = () => {
+    navigate('/register');
+  };
+
   return (
     <div className="w-full h-full relative bg-slate-200 overflow-hidden" >
       {/* BG */}
@@ -56,6 +60,7 @@ function LoginRegister() {
 
       <motion.button
         className="w-80 h-18 left-1/2 transform -translate-x-1/2 top-[60%] absolute rounded-2xl z-10 focus:outline-none transition duration-150 cursor-pointer shadow-[0px_0px_8px_0px_rgba(0,0,0,0.25)] active:ring-4 active:ring-blue-300 bg-white"
+        onClick={handleGoToRegister}
         type="button"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}

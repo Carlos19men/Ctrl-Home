@@ -10,7 +10,11 @@ function Login() {
   const [passwordError, setPasswordError] = useState(false);
 
   const handleGoBack = () => {
-    navigate(-1);
+    navigate('/');
+  };
+
+  const handleGoToRegister = () => {
+    navigate('/register');
   };
 
   const handleLogin = () => {
@@ -138,7 +142,14 @@ function Login() {
         transition={{ duration: 0.8, ease: "easeInOut" }}
       >
         <div className='w-full h-[60%] text-center top-0 font-secondary text-2xl text-azul-2 underline absolute'>¿Olvido su contraseña?</div>
-        <div className='w-full text-center top-[60%] font-secondary text-1xl text-azul-2 underline absolute opacity-70'>¿No tienes una cuenta? Registrate aquí.</div>
+        <motion.button
+          onClick={handleGoToRegister}
+          className='w-full text-center top-[60%] font-secondary text-1xl text-azul-2 underline absolute opacity-70 hover:opacity-100 cursor-pointer transition-opacity duration-200'
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          ¿No tienes una cuenta? Registrate aquí.
+        </motion.button>
       </motion.div>
     </div>
   );
