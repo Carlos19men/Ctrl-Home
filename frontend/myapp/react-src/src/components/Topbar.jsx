@@ -6,8 +6,8 @@ function Topbar({ onSectionChange }) {
   const sections = [
     { id: 'favoritos', name: 'Favoritos', className: 'left-[51px]', dividerLeft: '180px' },
     { id: 'sala', name: 'Sala de Estar', className: 'left-[212px]', dividerLeft: '360px' },
-    { id: 'cocina', name: 'Cocina', className: 'left-[414px]', dividerLeft: '535px' },
-    { id: 'dormitorio', name: 'Dormitorio', className: 'left-[570px]', dividerLeft: '712px' },
+    { id: 'cocina', name: 'Cocina', className: 'left-[425px]', dividerLeft: '535px' },
+    { id: 'dormitorio', name: 'Dormitorio', className: 'left-[580px]', dividerLeft: '712px' },
     { id: 'vermas', name: 'Ver Más', className: 'left-[766px]', dividerLeft: null }
   ];
 
