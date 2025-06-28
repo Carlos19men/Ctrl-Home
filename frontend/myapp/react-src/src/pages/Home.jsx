@@ -1,12 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import Topbar from '../components/Topbar';
 import DeviceCard from '../components/DeviceCard';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 function Home() {
   const navigate = useNavigate();
   const [currentSection, setCurrentSection] = useState('favoritos');
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (date) => {
+    return date.toLocaleTimeString('es-ES', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    }).toLowerCase();
+  };
+
+  const formatDate = (date) => {
+    return date.toLocaleDateString('es-ES', {
+      day: '2-digit',
+      month: '2-digit',
+      year: '2-digit'
+    });
+  };
 
   const handletologin = () => {
     navigate('/');
@@ -23,8 +49,8 @@ function Home() {
                 <p className="text-3xl text-neutral-700 font-['Lexend']">Descubre el estado actual de tus dispositivos.</p>
               </div>
               <div className="text-right">
-                <p className="text-3xl text-neutral-700 font-['Lexend'] mb-2">17:53pm</p>
-                <p className="text-2xl text-neutral-700 font-light font-['Lexend']">15/06/25</p>
+                <p className="text-3xl text-neutral-700 font-['Lexend'] mb-2">{formatTime(currentTime)}</p>
+                <p className="text-2xl text-neutral-700 font-light font-['Lexend']">{formatDate(currentTime)}</p>
               </div>
             </div>
             <div className="grid grid-cols-3 gap-6 mt-12">
@@ -145,7 +171,18 @@ function Home() {
   return (
     <div className="App bg-azul-1">
       <Sidebar />
-      <main className="w-[1247px] bg-zinc-100 rounded-tl-[50px] rounded-bl-[50px] shadow-[0px_0px_30px_0px_rgba(0,0,0,0.35)]">
+      <motion.main 
+        className="w-[1247px] bg-zinc-100 rounded-tl-[50px] rounded-bl-[50px] shadow-[0px_0px_30px_0px_rgba(0,0,0,0.35)]"
+        initial={{ x: '100%', opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        exit={{ x: '100%', opacity: 0 }}
+        transition={{ 
+          type: "spring",
+          stiffness: 100,
+          damping: 20,
+          duration: 0.8
+        }}
+      >
         <div className="p-5">
           <div className="flex justify-between items-center mt-5">
             <Topbar onSectionChange={setCurrentSection} />
@@ -155,7 +192,7 @@ function Home() {
 
           {renderSectionContent()}
         </div>
-      </main>
+      </motion.main>
     </div>
   );
 }

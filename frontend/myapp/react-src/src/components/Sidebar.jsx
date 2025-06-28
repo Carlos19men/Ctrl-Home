@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 function Sidebar(){
     const navigate = useNavigate();
@@ -25,24 +26,36 @@ function Sidebar(){
         navigate('/settings');
     }
 
+    const getIndicatorPosition = () => {
+        switch(location.pathname) {
+            case '/home': return '297px';
+            case '/notifications': return '381px';
+            case '/security': return '465px';
+            case '/energy': return '549px';
+            case '/settings': return '862px';
+            default: return '297px';
+        }
+    };
+
     return (
         <div className="w-72 h-[918px] relative">
             {/* Indicador de sección activa */}
-            {isActive('/home') && (
-                <div className="w-65 h-16 left-0 top-[297px] absolute bg-zinc-100 rounded-tr-[50px] rounded-br-[50px] shadow-[0px_0px_30px_0px_rgba(0,0,0,0.25)]" />
-            )}
-            {isActive('/notifications') && (
-                <div className="w-65 h-16 left-0 top-[381px] absolute bg-zinc-100 rounded-tr-[50px] rounded-br-[50px] shadow-[0px_0px_30px_0px_rgba(0,0,0,0.25)]" />
-            )}
-            {isActive('/security') && (
-                <div className="w-65 h-16 left-0 top-[465px] absolute bg-zinc-100 rounded-tr-[50px] rounded-br-[50px] shadow-[0px_0px_30px_0px_rgba(0,0,0,0.25)]" />
-            )}
-            {isActive('/energy') && (
-                <div className="w-65 h-16 left-0 top-[549px] absolute bg-zinc-100 rounded-tr-[50px] rounded-br-[50px] shadow-[0px_0px_30px_0px_rgba(0,0,0,0.25)]" />
-            )}
-            {isActive('/settings') && (
-                <div className="w-65 h-16 left-0 top-[862px] absolute bg-zinc-100 rounded-tr-[50px] rounded-br-[50px] shadow-[0px_0px_30px_0px_rgba(0,0,0,0.25)]" />
-            )}
+            <motion.div 
+                className="w-65 h-16 left-0 absolute bg-zinc-100 rounded-tr-[50px] rounded-br-[50px] shadow-[0px_0px_30px_0px_rgba(0,0,0,0.25)]"
+                initial={{ x: -100, opacity: 0 }}
+                animate={{ 
+                    x: 0, 
+                    opacity: 1,
+                    top: getIndicatorPosition()
+                }}
+                transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 25,
+                    duration: 0.5
+                }}
+                layoutId="sidebarIndicator"
+            />
 
             {/* Título */}
             <div className="left-[21%] top-[150px] absolute justify-start text-blue-800 text-3xl font-bold font-['Kantumruy Pro']">Ctrl+Home</div>
