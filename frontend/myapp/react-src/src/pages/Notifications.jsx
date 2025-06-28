@@ -3,7 +3,7 @@ import Sidebar from "../components/Sidebar";
 
 const Notifications = () => { 
     return(
-        <div className="App">
+        <div className="App bg-azul-1">
             <Sidebar />
             <div>Notifications</div>
         </div>

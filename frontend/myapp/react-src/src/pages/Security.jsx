@@ -3,7 +3,7 @@ import Sidebar from "../components/Sidebar";
 
 const Security = () => { 
     return(
-        <div className="App">
+        <div className="App bg-azul-1">
             <Sidebar />
             <div>Security</div>
         </div>

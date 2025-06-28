@@ -27,7 +27,7 @@ function Home() {
                 <p className="text-2xl text-neutral-700 font-light font-['Lexend']">15/06/25</p>
               </div>
             </div>
-            <div className="device-grid mt-12">
+            <div className="grid grid-cols-3 gap-6 mt-12">
               <DeviceCard name="Cafetera Oster" room="Cocina"/>
               <DeviceCard name="Bocina JBL" room="Sala de estar" status="65%" />
               <DeviceCard name="Lámpara PHILLIPS" room="Dormitorio" />
@@ -40,7 +40,7 @@ function Home() {
           <div className="mt-20 ml-8 px-12">
             <h2 className="text-4xl font-bold text-neutral-700 mb-6">Sala de Estar</h2>
             <p className="text-2xl text-neutral-700 mb-12">Gestiona los dispositivos de tu sala</p>
-            <div className="device-grid">
+            <div className="grid grid-cols-3 gap-6">
               <DeviceCard name="Smart TV Samsung" room="Sala de estar" />
               <DeviceCard name="Bocina JBL" room="Sala de estar" status="65%" />
               <DeviceCard name="Lámpara de pie" room="Sala de estar" />
@@ -54,7 +54,7 @@ function Home() {
           <div className="mt-20 ml-8 px-12">
             <h2 className="text-4xl font-bold text-neutral-700 mb-6">Cocina</h2>
             <p className="text-2xl text-neutral-700 mb-12">Controla tus electrodomésticos</p>
-            <div className="device-grid">
+            <div className="grid grid-cols-3 gap-6">
               <DeviceCard name="Cafetera Oster" room="Cocina" />
               <DeviceCard name="Microondas" room="Cocina" />
               <DeviceCard name="Refrigerador" room="Cocina" />
@@ -68,7 +68,7 @@ function Home() {
           <div className="mt-20 ml-8 px-12">
             <h2 className="text-4xl font-bold text-neutral-700 mb-6">Dormitorio</h2>
             <p className="text-2xl text-neutral-700 mb-12">Configura el ambiente perfecto para descansar</p>
-            <div className="device-grid">
+            <div className="grid grid-cols-3 gap-6">
               <DeviceCard name="Aire Acondicionado" room="Dormitorio" />
               <DeviceCard name="Lámpara PHILLIPS" room="Dormitorio" />
               <DeviceCard name="TV Dormitorio" room="Dormitorio" />
@@ -143,7 +143,7 @@ function Home() {
   };
 
   return (
-    <div className="App">
+    <div className="App bg-azul-1">
       <Sidebar />
       <main className="w-[1247px] bg-zinc-100 rounded-tl-[50px] rounded-bl-[50px] shadow-[0px_0px_30px_0px_rgba(0,0,0,0.35)]">
         <div className="p-5">

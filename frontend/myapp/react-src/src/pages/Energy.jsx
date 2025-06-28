@@ -3,7 +3,7 @@ import Sidebar from '../components/Sidebar';
 
 const Energy = () => {
     return (
-        <div className="App">
+        <div className="App bg-azul-1">
             <Sidebar />
             <div className="w-[1118px] bg-zinc-100 rounded-tl-[50px] rounded-bl-[50px] shadow-[0px_0px_30px_0px_rgba(0,0,0,0.25)]">
                 <div className="p-8">
