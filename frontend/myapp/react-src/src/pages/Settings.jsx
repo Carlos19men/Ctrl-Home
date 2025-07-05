@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Pencil, User, Image as ImageIcon, Languages, Globe, Bell, Volume2, BarChart2, RefreshCcw } from "lucide-react";
+import CardSetting from "../components/CardSetting";
 
 const Settings = () => {
     const [tab, setTab] = useState('General');
@@ -63,48 +64,13 @@ const Settings = () => {
                             >
                                 <h3 className="text-2xl font-semibold text-neutral-700 mb-2">General</h3>
                                 <hr className="mb-4 border-zinc-200" />
-                                <div className="flex flex-col gap-4 max-h-[60vh] overflow-y-auto custom-scrollbar pr-2 pb-38">
-                                    {/* Selección de idioma */}
-                                    <div className="bg-white rounded-xl p-6 shadow-sm flex items-center gap-6">
-                                        <div className="w-12 h-12 rounded-lg bg-zinc-200 flex items-center justify-center text-xl">
-                                            <Languages className="w-7 h-7 text-azul-2" />
-                                        </div>
-                                        <div className="flex-1">
-                                            <span className="text-lg font-semibold text-neutral-800">Idioma del sistema</span>
-                                            <p className="text-sm text-zinc-500">Selecciona el idioma preferido para la interfaz.</p>
-                                        </div>
-                                        <select className="border border-zinc-300 rounded-lg px-3 py-2">
-                                            <option>Español</option>
-                                            <option disabled>Próximamente más idiomas</option>
-                                        </select>
-                                    </div>
-                                    {/* Zona horaria */}
-                                    <div className="bg-white rounded-xl p-6 shadow-sm flex items-center gap-6">
-                                        <div className="w-12 h-12 rounded-lg bg-zinc-200 flex items-center justify-center text-xl">
-                                            <Globe className="w-7 h-7 text-azul-2" />
-                                        </div>
-                                        <div className="flex-1">
-                                            <span className="text-lg font-semibold text-neutral-800">Zona horaria</span>
-                                            <p className="text-sm text-zinc-500">Configura la zona horaria para los registros y notificaciones.</p>
-                                        </div>
-                                        <select className="border border-zinc-300 rounded-lg px-3 py-2">
-                                            <option>GMT-4 (Caracas)</option>
-                                            <option>GMT-6 (CDMX)</option>
-                                            <option>GMT-3 (Buenos Aires)</option>
-                                            <option>GMT-5 (Bogotá)</option>
-                                            <option>GMT+1 (Madrid)</option>
-                                        </select>
-                                    </div>
-                                    {/* Activar/desactivar notificaciones generales */}
-                                    <div className="bg-white rounded-xl p-6 shadow-sm flex items-center gap-6">
-                                        <div className="w-12 h-12 rounded-lg bg-zinc-200 flex items-center justify-center text-xl">
-                                            <Bell className="w-7 h-7 text-azul-2" />
-                                        </div>
-                                        <div className="flex-1">
-                                            <span className="text-lg font-semibold text-neutral-800">Notificaciones generales</span>
-                                            <p className="text-sm text-zinc-500">Activa o desactiva todas las notificaciones del sistema.</p>
-                                        </div>
-                                        {/* Toggle switch */}
+                                <div className="flex flex-col gap-4 max-h-[60vh] overflow-y-auto custom-scrollbar pr-2 pb-36">
+                                    {/* Notificaciones generales */}
+                                    <CardSetting
+                                        icon={<Bell className="w-7 h-7 text-azul-2" />}
+                                        title="Notificaciones generales"
+                                        description="Activa o desactiva todas las notificaciones del sistema."
+                                    >
                                         <label className="relative inline-flex items-center cursor-pointer">
                                             <input
                                                 type="checkbox"
@@ -115,33 +81,13 @@ const Settings = () => {
                                             <div className="w-11 h-6 bg-gray-200 rounded-full transition-colors duration-300 peer-checked:bg-azul-2 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full peer-checked:after:border-white"></div>
                                             <span className="ml-2 text-zinc-700">{notificaciones ? 'Activadas' : 'Desactivadas'}</span>
                                         </label>
-                                    </div>
-                                    {/* Configuración de sonido de alertas */}
-                                    <div className="bg-white rounded-xl p-6 shadow-sm flex items-center gap-6">
-                                        <div className="w-12 h-12 rounded-lg bg-zinc-200 flex items-center justify-center text-xl">
-                                            <Volume2 className="w-7 h-7 text-azul-2" />
-                                        </div>
-                                        <div className="flex-1">
-                                            <span className="text-lg font-semibold text-neutral-800">Sonido de alertas</span>
-                                            <p className="text-sm text-zinc-500">Personaliza el tono y volumen de las alertas.</p>
-                                        </div>
-                                        <select className="border border-zinc-300 rounded-lg px-3 py-2 mr-2">
-                                            <option>Clásico</option>
-                                            <option>Digital</option>
-                                            <option>Campana</option>
-                                        </select>
-                                        <input type="range" min="0" max="100" defaultValue="70" className="accent-azul-2" />
-                                    </div>
-                                    {/* Preferencias de resumen semanal */}
-                                    <div className="bg-white rounded-xl p-6 shadow-sm flex items-center gap-6">
-                                        <div className="w-12 h-12 rounded-lg bg-zinc-200 flex items-center justify-center text-xl">
-                                            <BarChart2 className="w-7 h-7 text-azul-2" />
-                                        </div>
-                                        <div className="flex-1">
-                                            <span className="text-lg font-semibold text-neutral-800">Resumen semanal del hogar</span>
-                                            <p className="text-sm text-zinc-500">Recibe un resumen semanal de la actividad del hogar.</p>
-                                        </div>
-                                        {/* Toggle switch */}
+                                    </CardSetting>
+                                    {/* Resumen semanal del hogar */}
+                                    <CardSetting
+                                        icon={<BarChart2 className="w-7 h-7 text-azul-2" />}
+                                        title="Resumen semanal del hogar"
+                                        description="Recibe un resumen semanal de la actividad del hogar."
+                                    >
                                         <label className="relative inline-flex items-center cursor-pointer">
                                             <input
                                                 type="checkbox"
@@ -152,18 +98,54 @@ const Settings = () => {
                                             <div className="w-11 h-6 bg-gray-200 rounded-full transition-colors duration-300 peer-checked:bg-azul-2 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full peer-checked:after:border-white"></div>
                                             <span className="ml-2 text-zinc-700">{resumenSemanal ? 'Activado' : 'Desactivado'}</span>
                                         </label>
-                                    </div>
+                                    </CardSetting>
+                                    {/* Selección de idioma */}
+                                    <CardSetting
+                                        icon={<Languages className="w-7 h-7 text-azul-2" />}
+                                        title="Idioma del sistema"
+                                        description="Selecciona el idioma preferido para la interfaz."
+                                    >
+                                        <select className="border border-zinc-300 rounded-lg px-3 py-2">
+                                            <option>Español</option>
+                                            <option disabled>Próximamente más idiomas</option>
+                                        </select>
+                                    </CardSetting>
+                                    {/* Zona horaria */}
+                                    <CardSetting
+                                        icon={<Globe className="w-7 h-7 text-azul-2" />}
+                                        title="Zona horaria"
+                                        description="Configura la zona horaria para los registros y notificaciones."
+                                    >
+                                        <select className="border border-zinc-300 rounded-lg px-3 py-2">
+                                            <option>GMT-4 (Caracas)</option>
+                                            <option>GMT-6 (CDMX)</option>
+                                            <option>GMT-3 (Buenos Aires)</option>
+                                            <option>GMT-5 (Bogotá)</option>
+                                            <option>GMT+1 (Madrid)</option>
+                                        </select>
+                                    </CardSetting>
+                                    {/* Sonido de alertas */}
+                                    <CardSetting
+                                        icon={<Volume2 className="w-7 h-7 text-azul-2" />}
+                                        title="Sonido de alertas"
+                                        description="Personaliza el tono y volumen de las alertas."
+                                    >
+                                        <select className="border border-zinc-300 rounded-lg px-3 py-2 mr-2">
+                                            <option>Clásico</option>
+                                            <option>Digital</option>
+                                            <option>Campana</option>
+                                        </select>
+                                        <input type="range" min="0" max="100" defaultValue="70" className="accent-azul-2" />
+                                    </CardSetting>
                                     {/* Restablecer configuraciones por defecto */}
-                                    <div className="bg-white rounded-xl p-6 shadow-sm flex items-center gap-6">
-                                        <div className="w-12 h-12 rounded-lg bg-zinc-200 flex items-center justify-center text-xl">
-                                            <RefreshCcw className="w-7 h-7 text-azul-2" />
-                                        </div>
-                                        <div className="flex-1">
-                                            <span className="text-lg font-semibold text-neutral-800">Restablecer configuraciones</span>
-                                            <p className="text-sm text-zinc-500">Vuelve a los valores predeterminados del sistema.</p>
-                                        </div>
+                                    <CardSetting
+                                        icon={<RefreshCcw className="w-7 h-7 text-azul-2" />}
+                                        title="Restablecer configuraciones"
+                                        description="Vuelve a los valores predeterminados del sistema."
+                                        className="mt-20"
+                                    >
                                         <button className="bg-azul-2 text-white px-4 py-2 rounded-lg hover:bg-azul-1 transition">Restablecer</button>
-                                    </div>
+                                    </CardSetting>
                                 </div>
                             </motion.div>
                         )}
