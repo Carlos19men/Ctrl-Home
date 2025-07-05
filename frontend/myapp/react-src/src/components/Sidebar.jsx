@@ -53,7 +53,7 @@ function Sidebar({ fadeInSidebar }){
 
     return (
         <motion.div 
-            className="w-80 h-full relative"
+            className="w-80 h-full relative pointer-events-none"
             initial={shouldFade ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             transition={{ duration: shouldFade ? 0.8 : 0 }}
@@ -88,33 +88,33 @@ function Sidebar({ fadeInSidebar }){
 
             {/* MENU DE NAVEGACIÓN */}
             {/*Home*/}
-            <div className="w-65 h-[8%] top-[32%] left-0 absolute cursor-pointer" onClick={GoToHome}>
-                <img src="/assets/icons/material-symbols_home-rounded.svg" alt="Home" className='w-7 h-7 left-10 top-1/2 transform -translate-y-1/2 absolute'/>
-                <div className="left-19 top-1/2 transform -translate-y-1/2 absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend'] ">Inicio</div>
+            <div className="w-65 h-[8%] top-[32%] left-0 absolute cursor-pointer pointer-events-auto" onClick={GoToHome}>
+                <img src="/assets/icons/material-symbols_home-rounded.svg" alt="Home" className='w-7 h-7 left-10 top-1/2 transform -translate-y-1/2 absolute select-none'/>
+                <div className="left-19 top-1/2 transform -translate-y-1/2 absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend'] select-none">Inicio</div>
             </div>
 
             {/*Notificaciones*/}
-            <div className="w-65 h-[8%] top-[42%] left-0 absolute cursor-pointer" onClick={GoToNotifications}>
-                <img src="/assets/icons/mingcute_notification-fill.svg" alt="Notifications" className='w-7 h-8 left-10 top-1/2 transform -translate-y-1/2 absolute'/>
-                <div className="left-19 top-1/2 transform -translate-y-1/2 absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend']">Notificaciones</div>
+            <div className="w-65 h-[8%] top-[42%] left-0 absolute cursor-pointer pointer-events-auto" onClick={GoToNotifications}>
+                <img src="/assets/icons/mingcute_notification-fill.svg" alt="Notifications" className='w-7 h-8 left-10 top-1/2 transform -translate-y-1/2 absolute select-none'/>
+                <div className="left-19 top-1/2 transform -translate-y-1/2 absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend'] select-none">Notificaciones</div>
             </div>
 
             {/*Seguridad*/}
-            <div className="w-65 h-[8%] top-[51%] left-0 absolute cursor-pointer" onClick={GoToSecurity}>
-                <img src="/assets/icons/mdi_security-lock.svg" alt="Security" className='w-7 h-9 left-10 top-1/2 transform -translate-y-1/2 absolute'/>
-                <div className="left-19 top-1/2 transform -translate-y-1/2 absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend']">Seguridad</div>
+            <div className="w-65 h-[8%] top-[51%] left-0 absolute cursor-pointer pointer-events-auto" onClick={GoToSecurity}>
+                <img src="/assets/icons/mdi_security-lock.svg" alt="Security" className='w-7 h-9 left-10 top-1/2 transform -translate-y-1/2 absolute select-none'/>
+                <div className="left-19 top-1/2 transform -translate-y-1/2 absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend'] select-none">Seguridad</div>
             </div>
 
             {/*Ahorro Energético*/}
-            <div className="w-65 h-[8%] top-[59%] left-0 absolute cursor-pointer" onClick={GoToEnergy}>
-                <img src="/assets/icons/ic_baseline-energy-savings-leaf.svg" alt="Energy" className='w-7 h-7 left-10 top-1/2 transform -translate-y-1/2 absolute'/>
-                <div className="left-19 top-1/2 transform -translate-y-1/2 absolute justify-start text-neutral-700 text-base font-normal font-['Lexend']">Ahorro <br/>Energético</div>
+            <div className="w-65 h-[8%] top-[59%] left-0 absolute cursor-pointer pointer-events-auto" onClick={GoToEnergy}>
+                <img src="/assets/icons/ic_baseline-energy-savings-leaf.svg" alt="Energy" className='w-7 h-7 left-10 top-1/2 transform -translate-y-1/2 absolute select-none'/>
+                <div className="left-19 top-1/2 transform -translate-y-1/2 absolute justify-start text-neutral-700 text-base font-normal font-['Lexend'] select-none">Ahorro <br/>Energético</div>
             </div>
 
             {/*Configuración*/}
-            <div className="w-65 h-[8%] top-[89%] left-0 absolute cursor-pointer" onClick={GoToSettings}>
-                <img src="/assets/icons/iconamoon_settings-fill.svg" alt="Settings" className='w-8 h-8 left-10 top-1/2 transform -translate-y-1/2 absolute'/>
-                <div className="left-19 top-1/2 transform -translate-y-1/2 absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend']">Configuración</div>
+            <div className="w-65 h-[8%] top-[89%] left-0 absolute cursor-pointer pointer-events-auto" onClick={GoToSettings}>
+                <img src="/assets/icons/iconamoon_settings-fill.svg" alt="Settings" className='w-8 h-8 left-10 top-1/2 transform -translate-y-1/2 absolute select-none'/>
+                <div className="left-19 top-1/2 transform -translate-y-1/2 absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend'] select-none">Configuración</div>
             </div>
         </motion.div>
     );
