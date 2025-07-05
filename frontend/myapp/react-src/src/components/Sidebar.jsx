@@ -42,25 +42,25 @@ function Sidebar({ fadeInSidebar }){
 
     const getIndicatorPosition = () => {
         switch(location.pathname) {
-            case '/home': return '297px';
-            case '/notifications': return '381px';
-            case '/security': return '465px';
-            case '/energy': return '549px';
-            case '/settings': return '862px';
-            default: return '297px';
+            case '/home': return '32%';
+            case '/notifications': return '42%';
+            case '/security': return '51%';
+            case '/energy': return '59%';
+            case '/settings': return '89%';
+            default: return '32%';
         }
     };
 
     return (
         <motion.div 
-            className="w-72 h-[918px] relative"
+            className="w-80 h-full relative"
             initial={shouldFade ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             transition={{ duration: shouldFade ? 0.8 : 0 }}
         >
             {/* Indicador de sección activa */}
             <motion.div 
-                className="w-65 h-16 left-0 absolute bg-zinc-100 rounded-tr-[50px] rounded-br-[50px] shadow-[0px_0px_30px_0px_rgba(0,0,0,0.25)]"
+                className="w-65 h-[8%] left-0 absolute bg-zinc-100 rounded-tr-[50px] rounded-br-[50px] shadow-[0px_0px_30px_0px_rgba(0,0,0,0.25)]"
                 initial={{ x: -100, opacity: 0 }}
                 animate={{ 
                     x: 0, 
@@ -86,31 +86,36 @@ function Sidebar({ fadeInSidebar }){
             {/* Título */}
             <div className="left-[21%] top-[150px] absolute justify-start text-azul-2 text-3xl font-bold font-['Kantumruy Pro'] select-none">Ctrl+Home</div>
 
-            {/* Menú de navegación */}
-            <div className="w-10 h-10 left-[32px] top-[308px] absolute overflow-hidden cursor-pointer" onClick={GoToHome}>
-                <img src="/assets/icons/material-symbols_home-rounded.svg" alt="Home" className="w-7 h-7 left-[6.67px] top-[5.83px] absolute" />
+            {/* MENU DE NAVEGACIÓN */}
+            {/*Home*/}
+            <div className="w-65 h-[8%] top-[32%] left-0 absolute cursor-pointer" onClick={GoToHome}>
+                <img src="/assets/icons/material-symbols_home-rounded.svg" alt="Home" className='w-7 h-7 left-10 top-1/2 transform -translate-y-1/2 absolute'/>
+                <div className="left-19 top-1/2 transform -translate-y-1/2 absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend'] ">Inicio</div>
             </div>
-            <div className="left-[75px] top-[315px] absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend'] cursor-pointer" onClick={GoToHome}>Inicio</div>
 
-            <div className="w-10 h-10 left-[32px] top-[397px] absolute overflow-hidden cursor-pointer" onClick={GoToNotifications}>
-                <img src="/assets/icons/mingcute_notification-fill.svg" alt="Notifications" className="w-7 h-8 left-[5.10px] top-[3.33px] absolute" />
+            {/*Notificaciones*/}
+            <div className="w-65 h-[8%] top-[42%] left-0 absolute cursor-pointer" onClick={GoToNotifications}>
+                <img src="/assets/icons/mingcute_notification-fill.svg" alt="Notifications" className='w-7 h-8 left-10 top-1/2 transform -translate-y-1/2 absolute'/>
+                <div className="left-19 top-1/2 transform -translate-y-1/2 absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend']">Notificaciones</div>
             </div>
-            <div className="left-[75px] top-[400px] absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend'] cursor-pointer" onClick={GoToNotifications}>Notificaciones</div>
 
-            <div className="w-10 h-10 left-[32px] top-[481px] absolute overflow-hidden cursor-pointer" onClick={GoToSecurity}>
-                <img src="/assets/icons/mdi_security-lock.svg" alt="Security" className="w-7 h-9 left-[5px] top-[1.67px] absolute" />
+            {/*Seguridad*/}
+            <div className="w-65 h-[8%] top-[51%] left-0 absolute cursor-pointer" onClick={GoToSecurity}>
+                <img src="/assets/icons/mdi_security-lock.svg" alt="Security" className='w-7 h-9 left-10 top-1/2 transform -translate-y-1/2 absolute'/>
+                <div className="left-19 top-1/2 transform -translate-y-1/2 absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend']">Seguridad</div>
             </div>
-            <div className="left-[75px] top-[485px] absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend'] cursor-pointer" onClick={GoToSecurity}>Seguridad</div>
 
-            <div className="w-10 h-10 left-[32px] top-[565px] absolute overflow-hidden cursor-pointer" onClick={GoToEnergy}>
-                <img src="/assets/icons/ic_baseline-energy-savings-leaf.svg" alt="Energy" className="w-7 h-7 left-[5px] top-[5px] absolute" />
+            {/*Ahorro Energético*/}
+            <div className="w-65 h-[8%] top-[59%] left-0 absolute cursor-pointer" onClick={GoToEnergy}>
+                <img src="/assets/icons/ic_baseline-energy-savings-leaf.svg" alt="Energy" className='w-7 h-7 left-10 top-1/2 transform -translate-y-1/2 absolute'/>
+                <div className="left-19 top-1/2 transform -translate-y-1/2 absolute justify-start text-neutral-700 text-base font-normal font-['Lexend']">Ahorro <br/>Energético</div>
             </div>
-            <div className="left-[75px] top-[558px] absolute justify-start text-neutral-700 text-base font-normal font-['Lexend'] cursor-pointer" onClick={GoToEnergy}>Ahorro <br/>Energético</div>
 
-            <div className="w-10 h-10 left-[32px] top-[718px] absolute overflow-hidden cursor-pointer" onClick={GoToSettings}>
-                <img src="/assets/icons/iconamoon_settings-fill.svg" alt="Settings" className="w-8 h-8 left-[4px] top-[3.33px] absolute" />
+            {/*Configuración*/}
+            <div className="w-65 h-[8%] top-[89%] left-0 absolute cursor-pointer" onClick={GoToSettings}>
+                <img src="/assets/icons/iconamoon_settings-fill.svg" alt="Settings" className='w-8 h-8 left-10 top-1/2 transform -translate-y-1/2 absolute'/>
+                <div className="left-19 top-1/2 transform -translate-y-1/2 absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend']">Configuración</div>
             </div>
-            <div className="left-[75px] top-[725px] absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend'] cursor-pointer" onClick={GoToSettings}>Configuración</div>
         </motion.div>
     );
 };
