@@ -10,7 +10,7 @@ const Notification = ({ title, description, time }) => {
             </div>
 
             {/* Tarjeta de notificación */}
-            <div className="flex items-start gap-5 bg-white rounded-lg shadow p-4 w-full max-w-4xl border border-neutral-200">
+            <div className="flex items-start gap-5 bg-white rounded-lg shadow p-3 w-full max-w-4xl border border-neutral-200">
                 <div className="bg-azul-2 rounded-md p-3 flex items-center justify-center">
                     <Bell className="text-white w-12 h-12" />
                 </div>
