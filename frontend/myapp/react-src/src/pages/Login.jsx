@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { SidebarAnimationContext } from '../App';
 
 function Login() {
   const navigate = useNavigate();
+  const { setShouldAnimateSidebar } = useContext(SidebarAnimationContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState(false);
@@ -27,10 +29,8 @@ function Login() {
     
     // Si ambos campos están llenos, navegar a Home
     if (isEmailValid && isPasswordValid) {
-      // Pequeño delay para que el texto se desvanezca en su posición actual
-      setTimeout(() => {
-        navigate('/home');
-      }, 600);
+      setShouldAnimateSidebar(true);
+      navigate('/home');
     } else {
       // Desvanecer los errores después de 3 segundos
       setTimeout(() => {
@@ -41,7 +41,7 @@ function Login() {
   };
 
   return (
-    <div className="w-full h-full relative bg-slate-200 overflow-hidden" >
+    <div className="w-full h-full relative bg-azul-1 overflow-hidden" >
       {/* BG */}
       <div className="w-full h-full left-0 top-0 absolute overflow-hidden">
         <motion.img

@@ -14,7 +14,7 @@ function LoginRegister() {
   };
 
   return (
-    <div className="w-full h-full relative bg-slate-200 overflow-hidden" >
+    <div className="w-full h-full relative bg-azul-1 overflow-hidden" >
       {/* BG */}
       <div className="w-full h-full left-0 top-0 absolute overflow-hidden">
         <motion.img

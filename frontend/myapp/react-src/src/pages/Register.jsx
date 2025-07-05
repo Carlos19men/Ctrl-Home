@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { SidebarAnimationContext } from '../App';
 
 function Register() {
   const navigate = useNavigate();
+  const { setShouldAnimateSidebar } = useContext(SidebarAnimationContext);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -38,10 +40,8 @@ function Register() {
     
     // Si todos los campos están llenos y las contraseñas coinciden, navegar a Home
     if (isUsernameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid && doPasswordsMatch) {
-      // Pequeño delay para que el texto se desvanezca en su posición actual
-      setTimeout(() => {
-        navigate('/home');
-      }, 600);
+      setShouldAnimateSidebar(true);
+      navigate('/home');
     } else {
       // Desvanecer los errores después de 3 segundos
       setTimeout(() => {
@@ -55,7 +55,7 @@ function Register() {
   };
 
   return (
-    <div className="w-full h-full relative bg-slate-200 overflow-hidden" >
+    <div className="w-full h-full relative bg-azul-1 overflow-hidden" >
       {/* BG */}
       <div className="w-full h-full left-0 top-0 absolute overflow-hidden">
         <motion.img
@@ -101,7 +101,7 @@ function Register() {
 
       {/* REGISTRO */}
       <motion.div 
-        className='w-[49%] h-[74%] left-1/2 transform -translate-x-1/2 top-[18%] absolute bg-zinc-100 rounded-2xl'
+        className='w-[48%] h-[73%] left-1/2 transform -translate-x-1/2 top-[20%] absolute bg-zinc-100 rounded-2xl'
         initial={{ y: '50vh', opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: '50vh', opacity: 0 }}
@@ -179,7 +179,7 @@ function Register() {
 
       {/* TEXTO DE ABAJO */}
       <motion.div 
-        className="w-[27%] h-[8%] left-1/2 transform -translate-x-1/2 top-[93%] absolute"
+        className="w-[48%] h-[8%] left-1/2 transform -translate-x-1/2 top-[94%] absolute"
         initial={{ y: '50vh', opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: '50vh', opacity: 0 }}

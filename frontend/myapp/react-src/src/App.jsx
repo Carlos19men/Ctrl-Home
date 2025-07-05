@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 import Home from './pages/Home';
 import LoginRegister from './pages/LoginRegister';
 import Login from './pages/Login';
@@ -10,6 +10,51 @@ import Settings from './pages/Settings';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import './App.css';
+
+// Contexto para navegación
+export const NavigationContext = createContext({ prevPath: null, currentPath: null });
+
+function NavigationProvider({ children }) {
+  const location = useLocation();
+  const [prevPath, setPrevPath] = useState(null);
+  const [currentPath, setCurrentPath] = useState(location.pathname);
+
+  useEffect(() => {
+    setPrevPath(currentPath);
+    setCurrentPath(location.pathname);
+  }, [location.pathname]);
+
+  return (
+    <NavigationContext.Provider value={{ prevPath, currentPath }}>
+      {children}
+    </NavigationContext.Provider>
+  );
+}
+
+// Nuevo: NavigationProviderWithRouter para envolver Router
+function NavigationProviderWithRouter({ children }) {
+  return (
+    <Router>
+      <NavigationProvider>{children}</NavigationProvider>
+    </Router>
+  );
+}
+
+// Contexto para animación de sidebar
+export const SidebarAnimationContext = createContext({
+  shouldAnimateSidebar: false,
+  setShouldAnimateSidebar: () => {}
+});
+
+function SidebarAnimationProvider({ children }) {
+  const [shouldAnimateSidebar, setShouldAnimateSidebar] = useState(false);
+
+  return (
+    <SidebarAnimationContext.Provider value={{ shouldAnimateSidebar, setShouldAnimateSidebar }}>
+      {children}
+    </SidebarAnimationContext.Provider>
+  );
+}
 
 function FloatingText({ location }) {
   const [lastPath, setLastPath] = useState(location.pathname);
@@ -32,7 +77,7 @@ function FloatingText({ location }) {
       case '/login':
         return { top: '12%', x: 0, y: 0 };
       case '/register':
-        return { top: 0, x: 0, y: 0 };
+        return { top: '2%', x: 0, y: 0 };
       case '/home':
         return { top: '12%', x: 0, y: 0 };
       default:
@@ -95,18 +140,20 @@ function AppContent() {
   const location = useLocation();
   
   return (
-    <div className="App">
-      <AnimatedRoutes />
-      <FloatingText location={location} />
-    </div>
+    <SidebarAnimationProvider>
+      <div className="App">
+        <AnimatedRoutes />
+        <FloatingText location={location} />
+      </div>
+    </SidebarAnimationProvider>
   );
 }
 
 function App() {
   return (
-    <Router>
+    <NavigationProviderWithRouter>
       <AppContent />
-    </Router>
+    </NavigationProviderWithRouter>
   );
 }
 

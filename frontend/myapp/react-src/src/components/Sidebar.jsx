@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useRef, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { SidebarAnimationContext } from '../App';
 
-function Sidebar(){
+function Sidebar({ fadeInSidebar }){
     const navigate = useNavigate();
     const location = useLocation();
+    const prevPathRef = useRef();
+    const { shouldAnimateSidebar, setShouldAnimateSidebar } = useContext(SidebarAnimationContext);
+    // Guardar la ruta anterior
+    React.useEffect(() => {
+        prevPathRef.current = location.pathname;
+    }, [location.pathname]);
+
+    let shouldFade = false;
+    if (fadeInSidebar && shouldAnimateSidebar) {
+        shouldFade = true;
+        // Reset después de usar
+        setShouldAnimateSidebar(false);
+    }
 
     const isActive = (path) => {
         return location.pathname === path;
@@ -38,7 +52,12 @@ function Sidebar(){
     };
 
     return (
-        <div className="w-72 h-[918px] relative">
+        <motion.div 
+            className="w-72 h-[918px] relative"
+            initial={shouldFade ? { opacity: 0 } : false}
+            animate={{ opacity: 1 }}
+            transition={{ duration: shouldFade ? 0.8 : 0 }}
+        >
             {/* Indicador de sección activa */}
             <motion.div 
                 className="w-65 h-16 left-0 absolute bg-zinc-100 rounded-tr-[50px] rounded-br-[50px] shadow-[0px_0px_30px_0px_rgba(0,0,0,0.25)]"
@@ -57,8 +76,15 @@ function Sidebar(){
                 layoutId="sidebarIndicator"
             />
 
+            {/* Logo de la app */}
+            <img 
+                src="/logoazul.png" 
+                alt="Logo Ctrl+Home" 
+                className="w-30 h-30 left-1/2 top-7 absolute -translate-x-1/2 select-none" 
+            />
+
             {/* Título */}
-            <div className="left-[21%] top-[150px] absolute justify-start text-azul-2 text-3xl font-bold font-['Kantumruy Pro']">Ctrl+Home</div>
+            <div className="left-[21%] top-[150px] absolute justify-start text-azul-2 text-3xl font-bold font-['Kantumruy Pro'] select-none">Ctrl+Home</div>
 
             {/* Menú de navegación */}
             <div className="w-10 h-10 left-[32px] top-[308px] absolute overflow-hidden cursor-pointer" onClick={GoToHome}>
@@ -85,7 +111,7 @@ function Sidebar(){
                 <img src="/assets/icons/iconamoon_settings-fill.svg" alt="Settings" className="w-8 h-8 left-[4px] top-[3.33px] absolute" />
             </div>
             <div className="left-[75px] top-[725px] absolute justify-start text-neutral-700 text-xl font-normal font-['Lexend'] cursor-pointer" onClick={GoToSettings}>Configuración</div>
-        </div>
+        </motion.div>
     );
 };
 
