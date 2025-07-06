@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { SidebarAnimationContext } from '../App';
@@ -8,8 +8,38 @@ function Login() {
   const { setShouldAnimateSidebar } = useContext(SidebarAnimationContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('admin');
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [roleError, setRoleError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loginError, setLoginError] = useState('');
+  const [cheerpLoaded, setCheerpLoaded] = useState(false);
+
+  // Cargar el módulo Cheerp al montar el componente
+  useEffect(() => {
+    const loadCheerpModule = async () => {
+      try {
+        // Crear script dinámicamente para cargar el módulo
+        const script = document.createElement('script');
+        script.src = '/cheerp_backend.js';
+        script.onload = () => {
+          setCheerpLoaded(true);
+          console.log('Módulo Cheerp cargado exitosamente');
+        };
+        script.onerror = () => {
+          console.error('Error al cargar el módulo Cheerp');
+          setLoginError('Error al cargar el módulo de validación');
+        };
+        document.head.appendChild(script);
+      } catch (error) {
+        console.error('Error al cargar Cheerp:', error);
+        setLoginError('Error al cargar el módulo de validación');
+      }
+    };
+
+    loadCheerpModule();
+  }, []);
 
   const handleGoBack = () => {
     navigate('/');
@@ -19,25 +49,85 @@ function Login() {
     navigate('/register');
   };
 
-  const handleLogin = () => {
+  const validateCredentialsWithCheerp = (username, password, role) => {
+    try {
+      // Verificar que las funciones estén disponibles
+      if (typeof window.validateCredentials !== 'function' || 
+          typeof window.writeToBuffer !== 'function') {
+        throw new Error('Funciones de validación no disponibles');
+      }
+
+      const encoder = new TextEncoder();
+      const usernameBytes = encoder.encode(username);
+      const passwordBytes = encoder.encode(password);
+      const roleBytes = encoder.encode(role);
+
+      // Escribir datos en el buffer
+      for (let i = 0; i < usernameBytes.length; i++) {
+        window.writeToBuffer(i, usernameBytes[i]);
+      }
+      for (let i = 0; i < passwordBytes.length; i++) {
+        window.writeToBuffer(100 + i, passwordBytes[i]);
+      }
+      for (let i = 0; i < roleBytes.length; i++) {
+        window.writeToBuffer(200 + i, roleBytes[i]);
+      }
+
+      // Validar credenciales
+      const result = window.validateCredentials(0, usernameBytes.length, 100, passwordBytes.length, 200, roleBytes.length);
+      return result === 1;
+    } catch (error) {
+      console.error('Error en validación Cheerp:', error);
+      return false;
+    }
+  };
+
+  const handleLogin = async () => {
+    setIsLoading(true);
+    setLoginError('');
+
     // Validar campos
     const isEmailValid = email.trim() !== '';
     const isPasswordValid = password.trim() !== '';
+    const isRoleValid = role.trim() !== '';
     
     setEmailError(!isEmailValid);
     setPasswordError(!isPasswordValid);
+    setRoleError(!isRoleValid);
     
-    // Si ambos campos están llenos, navegar a Home
-    if (isEmailValid && isPasswordValid) {
-      setShouldAnimateSidebar(true);
-      navigate('/home');
-    } else {
-      // Desvanecer los errores después de 3 segundos
+    if (!isEmailValid || !isPasswordValid || !isRoleValid) {
+      setIsLoading(false);
       setTimeout(() => {
         setEmailError(false);
         setPasswordError(false);
+        setRoleError(false);
       }, 3000);
+      return;
     }
+
+    // Si el módulo Cheerp no está cargado, usar validación básica
+    if (!cheerpLoaded) {
+      console.warn('Módulo Cheerp no cargado, usando validación básica');
+      setShouldAnimateSidebar(true);
+      navigate('/home');
+      setIsLoading(false);
+      return;
+    }
+
+    // Validar con backend C++
+    const isValid = validateCredentialsWithCheerp(email, password, role);
+    
+    if (isValid) {
+      setShouldAnimateSidebar(true);
+      navigate('/home');
+    } else {
+      setLoginError('Credenciales inválidas. Verifica usuario, contraseña y rol.');
+      setTimeout(() => {
+        setLoginError('');
+      }, 5000);
+    }
+    
+    setIsLoading(false);
   };
 
   return (
@@ -87,14 +177,14 @@ function Login() {
 
       {/* INICIAR SESION */}
       <motion.div 
-        className='w-[50%] h-[44%] left-1/2 transform -translate-x-1/2 top-[32%] absolute bg-zinc-100 rounded-2xl'
+        className='w-[50%] h-[60%] left-1/2 transform -translate-x-1/2 top-[25%] absolute bg-zinc-100 rounded-2xl'
         initial={{ y: '50vh', opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: '50vh', opacity: 0 }}
         transition={{ duration: 0.8, ease: "easeInOut" }}
       >
         {/* EMAIL / USUARIO*/}
-        <div className='w-[90%] h-[28%] left-1/2 transform -translate-x-1/2 top-[6%] absolute'>
+        <div className='w-[90%] h-[20%] left-1/2 transform -translate-x-1/2 top-[4%] absolute'>
           <div className='left-0 top-0 absolute justify-start text-azul-2 text-2xl font-normal font-secondary'>E-mail/usuario:</div>
           <input 
             type="email" 
@@ -107,8 +197,9 @@ function Login() {
             }}
           />
         </div>
+
         {/* CLAVE */}
-        <div className='w-[90%] h-[28%] left-1/2 transform -translate-x-1/2 top-[38%] absolute'>
+        <div className='w-[90%] h-[20%] left-1/2 transform -translate-x-1/2 top-[28%] absolute'>
           <div className='left-0 top-0 absolute justify-start text-azul-2 text-2xl font-normal font-secondary'>Contraseña:</div>
           <input 
             type="password" 
@@ -121,21 +212,50 @@ function Login() {
             }}
           />
         </div>
+
+        {/* ROL */}
+        <div className='w-[90%] h-[20%] left-1/2 transform -translate-x-1/2 top-[52%] absolute'>
+          <div className='left-0 top-0 absolute justify-start text-azul-2 text-2xl font-normal font-secondary'>Rol:</div>
+          <select 
+            className={`w-full h-[50%] left-0 top-10 absolute bg-gris-1 rounded-2xl px-4 text-azul-2 text-lg font-secondary focus:outline-none focus:ring-2 focus:ring-azul-2 focus:bg-white transition-all duration-500 ease-in-out ${roleError ? 'ring-2 ring-red-500 bg-red-50' : 'ring-0 bg-gris-1'}`}
+            value={role}
+            onChange={(e) => {
+              setRole(e.target.value);
+              if (roleError) setRoleError(false);
+            }}
+          >
+            <option value="admin">Administrador</option>
+            <option value="usuario">Usuario</option>
+          </select>
+        </div>
+
+        {/* MENSAJE DE ERROR */}
+        {loginError && (
+          <div className='w-[90%] left-1/2 transform -translate-x-1/2 top-[76%] absolute'>
+            <div className='text-center text-red-500 text-sm font-secondary bg-red-50 rounded-lg p-2'>
+              {loginError}
+            </div>
+          </div>
+        )}
+
         {/* BOTON */}
         <motion.button
           onClick={handleLogin}
-          className="w-[45%] h-[14%] left-1/2 transform -translate-x-1/2 top-[78%] absolute bg-azul-2 rounded-2xl cursor-pointer focus:outline-none"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          disabled={isLoading}
+          className={`w-[45%] h-[12%] left-1/2 transform -translate-x-1/2 top-[88%] absolute bg-azul-2 rounded-2xl cursor-pointer focus:outline-none ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          whileHover={!isLoading ? { scale: 1.05 } : {}}
+          whileTap={!isLoading ? { scale: 0.95 } : {}}
           transition={{ type: "spring", stiffness: 400, damping: 17 }}
         >
-          <div className="w-full text-center top-1/2 transform -translate-y-1/2 absolute justify-start text-white text-2xl font-normal font-secondary">Iniciar Sesión</div>
+          <div className="w-full text-center top-1/2 transform -translate-y-1/2 absolute justify-start text-white text-2xl font-normal font-secondary">
+            {isLoading ? 'Validando...' : 'Iniciar Sesión'}
+          </div>
         </motion.button>
       </motion.div>
       
       {/* TEXTO DE ABAJO */}
       <motion.div 
-        className="w-[27%] h-[8%] left-1/2 transform -translate-x-1/2 top-[78%] absolute"
+        className="w-[27%] h-[8%] left-1/2 transform -translate-x-1/2 top-[88%] absolute"
         initial={{ y: '50vh', opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: '50vh', opacity: 0 }}

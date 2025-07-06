@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Cheerp Integration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 3px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        input, button {
+            margin: 5px;
+            padding: 8px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test de Integración Cheerp</h1>
+    
+    <div class="test-section">
+        <h2>1. Carga del módulo</h2>
+        <button onclick="loadModule()">Cargar Módulo Cheerp</button>
+        <div id="loadResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Test del Buffer Global</h2>
+        <button onclick="testBuffer()">Probar Buffer Global</button>
+        <div id="bufferResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Test de Validación de Credenciales</h2>
+        <div>
+            <label>Usuario: <input type="text" id="username" value="carlos" /></label><br>
+            <label>Contraseña: <input type="password" id="password" value="sasa" /></label><br>
+            <label>Rol: <input type="text" id="role" value="admin" /></label><br>
+            <button onclick="testValidation()">Validar Credenciales</button>
+        </div>
+        <div id="validationResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. Test de Credenciales Inválidas</h2>
+        <div>
+            <label>Usuario: <input type="text" id="username2" value="samuel" /></label><br>
+            <label>Contraseña: <input type="password" id="password2" value="incorrecta" /></label><br>
+            <label>Rol: <input type="text" id="role2" value="usuario" /></label><br>
+            <button onclick="testInvalidCredentials()">Validar Credenciales Inválidas</button>
+        </div>
+        <div id="invalidResult"></div>
+    </div>
+
+    <script src="./frontend/myapp/react-src/src/cheerp/cheerp_backend.js"></script>
+    <script>
+        let bufferSize = 0;
+
+        function showResult(elementId, message, isSuccess = true) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = message;
+            element.className = isSuccess ? 'result success' : 'result error';
+        }
+
+        function loadModule() {
+            // Verificar si las funciones están en window
+            let props = [];
+            ['getBufferSize','writeToBuffer','readFromBuffer','validateCredentials'].forEach(fn => {
+                props.push(`${fn}: ${typeof window[fn]}`);
+            });
+            console.log('Propiedades globales:', props.join('\n'));
+            if(typeof window.getBufferSize === 'function') {
+                bufferSize = window.getBufferSize();
+            }
+            showResult('loadResult', 
+                `✅ Módulo cargado<br>
+                 Tamaño del buffer: ${bufferSize} ints<br>
+                 Función validateCredentials disponible: ${typeof window.validateCredentials === 'function' ? 'Sí' : 'No'}<br>
+                 Propiedades globales:<br><pre>${props.join('\n')}</pre>`);
+        }
+
+        function testBuffer() {
+            if (typeof window.writeToBuffer !== 'function' || typeof window.readFromBuffer !== 'function') {
+                showResult('bufferResult', '❌ Primero debes cargar el módulo', false);
+                return;
+            }
+            try {
+                const testData = "Hola Mundo desde JavaScript!";
+                const encoder = new TextEncoder();
+                const bytes = encoder.encode(testData);
+                for (let i = 0; i < Math.min(bytes.length, bufferSize); i++) {
+                    window.writeToBuffer(i, bytes[i]);
+                }
+                const readBytes = [];
+                for (let i = 0; i < Math.min(bytes.length, bufferSize); i++) {
+                    readBytes.push(window.readFromBuffer(i));
+                }
+                const decoder = new TextDecoder();
+                const readData = decoder.decode(new Uint8Array(readBytes));
+                showResult('bufferResult', 
+                    `✅ Buffer funcionando correctamente<br>
+                     Datos escritos: "${testData}"<br>
+                     Datos leídos: "${readData.trim()}"`);
+            } catch (error) {
+                showResult('bufferResult', 
+                    `❌ Error con el buffer: ${error.message}`, false);
+                console.error('Buffer error:', error);
+            }
+        }
+
+        function testValidation() {
+            if (typeof window.validateCredentials !== 'function') {
+                showResult('validationResult', '❌ Primero debes cargar el módulo', false);
+                return;
+            }
+            try {
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const role = document.getElementById('role').value;
+                const encoder = new TextEncoder();
+                const usernameBytes = encoder.encode(username);
+                const passwordBytes = encoder.encode(password);
+                const roleBytes = encoder.encode(role);
+                for (let i = 0; i < usernameBytes.length; i++) {
+                    window.writeToBuffer(i, usernameBytes[i]);
+                }
+                for (let i = 0; i < passwordBytes.length; i++) {
+                    window.writeToBuffer(100 + i, passwordBytes[i]);
+                }
+                for (let i = 0; i < roleBytes.length; i++) {
+                    window.writeToBuffer(200 + i, roleBytes[i]);
+                }
+                const result = window.validateCredentials(0, usernameBytes.length, 100, passwordBytes.length, 200, roleBytes.length);
+                showResult('validationResult', 
+                    `✅ Validación completada<br>
+                     Usuario: "${username}"<br>
+                     Contraseña: "${password}"<br>
+                     Rol: "${role}"<br>
+                     Resultado: ${result ? 'VÁLIDO' : 'INVÁLIDO'}`);
+            } catch (error) {
+                showResult('validationResult', 
+                    `❌ Error en validación: ${error.message}`, false);
+                console.error('Validation error:', error);
+            }
+        }
+
+        function testInvalidCredentials() {
+            if (typeof window.validateCredentials !== 'function') {
+                showResult('invalidResult', '❌ Primero debes cargar el módulo', false);
+                return;
+            }
+            try {
+                const username = document.getElementById('username2').value;
+                const password = document.getElementById('password2').value;
+                const role = document.getElementById('role2').value;
+                const encoder = new TextEncoder();
+                const usernameBytes = encoder.encode(username);
+                const passwordBytes = encoder.encode(password);
+                const roleBytes = encoder.encode(role);
+                for (let i = 0; i < usernameBytes.length; i++) {
+                    window.writeToBuffer(i, usernameBytes[i]);
+                }
+                for (let i = 0; i < passwordBytes.length; i++) {
+                    window.writeToBuffer(100 + i, passwordBytes[i]);
+                }
+                for (let i = 0; i < roleBytes.length; i++) {
+                    window.writeToBuffer(200 + i, roleBytes[i]);
+                }
+                const result = window.validateCredentials(0, usernameBytes.length, 100, passwordBytes.length, 200, roleBytes.length);
+                showResult('invalidResult', 
+                    `✅ Validación completada<br>
+                     Usuario: "${username}"<br>
+                     Contraseña: "${password}"<br>
+                     Rol: "${role}"<br>
+                     Resultado: ${result ? 'VÁLIDO' : 'INVÁLIDO'}<br>
+                     ${result ? '⚠️ Debería ser inválido' : '✅ Correctamente rechazado'}`);
+            } catch (error) {
+                showResult('invalidResult', 
+                    `❌ Error en validación: ${error.message}`, false);
+                console.error('Validation error:', error);
+            }
+        }
+    </script>
+</body>
+</html> 
