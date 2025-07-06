@@ -80,7 +80,7 @@ function Sidebar({ fadeInSidebar }){
             <img 
                 src="/logoazul.png" 
                 alt="Logo Ctrl+Home" 
-                className="w-30 h-30 left-1/2 top-7 absolute -translate-x-1/2 select-none" 
+                className="w-30 h-30 min-w-30 left-[27%] top-7 absolute select-none object-contain" 
             />
 
             {/* Título */}
