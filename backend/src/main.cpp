@@ -34,14 +34,16 @@ void crearUsuario(PostgresDB& db) {
     } while (opAcceso < 1 || opAcceso > (int)tipos.size());
     acceso = tipos[opAcceso-1];
 
-    std::cout << "Llave (ID_llave de la lista): "; std::cin >> llave;
+   
 
     // Mostrar llaves disponibles
     auto llaves = db.query("SELECT ID_llave FROM domotica.Llaves_de_Acceso");
     std::cout << "Llaves disponibles:\n";
     for (const auto& row : llaves) {
         std::cout << "  " << row.at("id_llave") << "\n";
-    }
+    } 
+    
+    std::cout << "Llave (ID_llave de la lista): "; std::cin >> llave;
     std::string sql = "INSERT INTO domotica.usuarios (ID_usuario, CI, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, acceso, llave) VALUES (" +
         std::to_string(id) + ", '" + ci + "', '" + nombre1 + "', '" + nombre2 + "', '" + apellido1 + "', '" + apellido2 + "', '" + acceso + "', " + std::to_string(llave) + ")";
     db.query(sql);
