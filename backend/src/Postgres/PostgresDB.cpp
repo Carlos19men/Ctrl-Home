@@ -32,21 +32,20 @@ std::vector<std::map<std::string, std::string>> PostgresDB::query(const std::str
     if (!isConnected()) return results;
 
     PGresult* res = PQexec(conn, sql.c_str());
-    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
-        std::cerr << "Error en la consulta: " << PQerrorMessage(conn) << std::endl;
-        PQclear(res);
-        return results;
-    }
+    ExecStatusType status = PQresultStatus(res);
 
-    int rows = PQntuples(res);
-    int cols = PQnfields(res);
-
-    for (int i = 0; i < rows; ++i) {
-        std::map<std::string, std::string> row;
-        for (int j = 0; j < cols; ++j) {
-            row[PQfname(res, j)] = PQgetvalue(res, i, j);
+    if (status == PGRES_TUPLES_OK) {
+        int rows = PQntuples(res);
+        int cols = PQnfields(res);
+        for (int i = 0; i < rows; ++i) {
+            std::map<std::string, std::string> row;
+            for (int j = 0; j < cols; ++j) {
+                row[PQfname(res, j)] = PQgetvalue(res, i, j);
+            }
+            results.push_back(row);
         }
-        results.push_back(row);
+    } else if (status != PGRES_COMMAND_OK) {
+        std::cerr << "Error en la consulta: " << PQerrorMessage(conn) << std::endl;
     }
     PQclear(res);
     return results;
