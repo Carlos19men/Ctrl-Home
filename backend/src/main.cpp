@@ -663,12 +663,21 @@ void actualizarConsumo(PostgresDB& db) {
 }
 // --- Menú principal ---
 int main() {
-    PostgresDB db("host=host.docker.internal dbname=ctrl_home user=postgres password=contrac");
+
+    //host.docker.internal   para el host en docker
+    //localhost para el host en linux
+    std::string host, dbname, user, password;
+    std::cout << "Host de la base de datos: "; std::getline(std::cin, host);
+    std::cout << "Nombre de la base de datos: "; std::getline(std::cin, dbname);
+    std::cout << "Usuario: "; std::getline(std::cin, user);
+    std::cout << "Contraseña: "; std::getline(std::cin, password);
+
+    std::string conn = "host=" + host + " dbname=" + dbname + " user=" + user + " password=" + password;
+    PostgresDB db(conn);
     if (!db.connect()) {
         std::cerr << "No se pudo conectar a la base de datos." << std::endl;
         return 1;
     }
-
     int opcion;
     do {
         std::cout << "\n--- MENU CRUD GENERAL ---\n";
