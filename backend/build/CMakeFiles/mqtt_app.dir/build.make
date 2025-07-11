@@ -124,10 +124,6 @@ mqtt_app: CMakeFiles/mqtt_app.dir/src/app.cpp.o
 mqtt_app: CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.o
 mqtt_app: CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.o
 mqtt_app: CMakeFiles/mqtt_app.dir/build.make
-mqtt_app: /usr/lib/x86_64-linux-gnu/libpaho-mqttpp3.so.1.2.0
-mqtt_app: /usr/lib/x86_64-linux-gnu/libpaho-mqtt3as.so
-mqtt_app: /usr/lib/x86_64-linux-gnu/libssl.so
-mqtt_app: /usr/lib/x86_64-linux-gnu/libcrypto.so
 mqtt_app: CMakeFiles/mqtt_app.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable mqtt_app"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/mqtt_app.dir/link.txt --verbose=$(VERBOSE)

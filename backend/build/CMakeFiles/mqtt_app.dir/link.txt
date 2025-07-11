@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/mqtt_app.dir/src/app.cpp.o CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.o CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.o -o mqtt_app  /usr/lib/x86_64-linux-gnu/libpaho-mqttpp3.so.1.2.0 /usr/lib/x86_64-linux-gnu/libpaho-mqtt3as.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so 
+/usr/bin/c++ CMakeFiles/mqtt_app.dir/src/app.cpp.o CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.o CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.o -o mqtt_app  -lpaho-mqttpp3 -lpaho-mqtt3as -lpthread 

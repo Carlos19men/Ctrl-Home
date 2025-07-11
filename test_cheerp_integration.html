@@ -88,6 +88,31 @@
         <div id="invalidResult"></div>
     </div>
 
+    <div class="test-section">
+        <h2>5. Control de Arduino</h2>
+        <div>
+            <label>LED: 
+                <select id="dispositivo">
+                    <option value="LED0">LED 0</option>
+                    <option value="LED1">LED 1</option>
+                    <option value="LED2">LED 2</option>
+                    <option value="LED3">LED 3</option>
+                    <option value="LED4">LED 4</option>
+                    <option value="LED9">LED 9</option>
+                    <option value="LED10">LED 10</option>
+                </select>
+            </label><br>
+            <label>Acción: 
+                <select id="accion">
+                    <option value="1">Encender</option>
+                    <option value="0">Apagar</option>
+                </select>
+            </label><br>
+            <button onclick="enviarComandoArduino()">Enviar Comando</button>
+        </div>
+        <div id="arduinoResult"></div>
+    </div>
+
     <script src="./frontend/myapp/react-src/src/cheerp/cheerp_backend.js"></script>
     <script>
         let bufferSize = 0;
@@ -216,6 +241,58 @@
                 console.error('Validation error:', error);
             }
         }
+
+        // Función para enviar comandos al Arduino
+        function enviarComandoArduino() {
+            const dispositivo = document.getElementById('dispositivo').value;
+            const accion = document.getElementById('accion').value;
+            
+            const comando = {
+                comando: `SET_${dispositivo}:${accion}`
+            };
+
+            console.log('Enviando comando:', comando);
+
+            // Suscribirse a la respuesta
+            client.subscribe('arduino/respuesta', function(err) {
+                if (!err) {
+                    console.log('Suscrito a arduino/respuesta');
+                }
+            });
+
+            // Enviar el comando
+            client.publish('api/comando', JSON.stringify(comando), { qos: 1 }, function(err) {
+                if (!err) {
+                    showResult('arduinoResult', 
+                        `✅ Comando enviado correctamente<br>
+                         LED: ${dispositivo}<br>
+                         Acción: ${accion === "1" ? "Encender" : "Apagar"}`);
+                } else {
+                    showResult('arduinoResult', 
+                        `❌ Error al enviar comando: ${err}`, false);
+                }
+            });
+        }
+
+        // Escuchar respuestas del Arduino
+        client.on('message', function (topic, message) {
+            console.log('📩 Mensaje recibido:', topic, message.toString());
+            if (topic === 'arduino/respuesta') {
+                try {
+                    const respuesta = JSON.parse(message.toString());
+                    if (respuesta.status === "comando_enviado") {
+                        showResult('arduinoResult', 
+                            `✅ Comando confirmado por el backend<br>
+                             Comando: ${respuesta.comando}`);
+                    } else if (respuesta.error) {
+                        showResult('arduinoResult', 
+                            `❌ Error: ${respuesta.error}`, false);
+                    }
+                } catch (e) {
+                    console.error('Error al procesar respuesta:', e);
+                }
+            }
+        });
     </script>
     <!-- MQTT.js prueba de conexión -->
     <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
@@ -238,10 +315,6 @@
             console.error('❌ Error al suscribirse:', err);
           }
         });
-      });
-
-      client.on('message', function (topic, message) {
-        console.log('📩 Mensaje recibido:', topic, message.toString());
       });
 
       client.on('error', function (err) {

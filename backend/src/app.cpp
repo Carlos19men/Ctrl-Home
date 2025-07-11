@@ -2,16 +2,122 @@
 #include "core/Broker.h" // Asegúrate de que la ruta sea correcta
 #include <iostream>
 #include <thread>
+#include <termios.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <string>
+#include <errno.h> // Para errno
+#include <cstring> // Para strerror
+
+// Función para configurar el puerto serial
+int configurarPuertoSerial(const char* puerto, speed_t baudios) {
+    std::cout << "Intentando abrir puerto serial: " << puerto << std::endl;
+    
+    int fd = open(puerto, O_RDWR);
+    if (fd < 0) {
+        std::cerr << "Error abriendo " << puerto << ": " << strerror(errno) << std::endl;
+        return -1;
+    }
+    std::cout << "Puerto serial abierto exitosamente" << std::endl;
+
+    struct termios tty;
+    if (tcgetattr(fd, &tty) != 0) {
+        std::cerr << "Error obteniendo atributos del puerto: " << strerror(errno) << std::endl;
+        close(fd);
+        return -1;
+    }
+
+    cfsetospeed(&tty, baudios);
+    cfsetispeed(&tty, baudios);
+
+    tty.c_cflag &= ~PARENB;
+    tty.c_cflag &= ~CSTOPB;
+    tty.c_cflag &= ~CSIZE;
+    tty.c_cflag |= CS8;
+    tty.c_cflag &= ~CRTSCTS;
+    tty.c_cflag |= CREAD | CLOCAL;
+
+    tty.c_lflag &= ~ICANON;
+    tty.c_lflag &= ~ECHO;
+    tty.c_lflag &= ~ECHOE;
+    tty.c_lflag &= ~ECHONL;
+    tty.c_lflag &= ~ISIG;
+
+    tty.c_iflag &= ~(IXON | IXOFF | IXANY);
+    tty.c_iflag &= ~(IGNBRK|BRKINT|PARMRK|ISTRIP|INLCR|IGNCR|ICRNL);
+
+    tty.c_oflag &= ~OPOST;
+    tty.c_oflag &= ~ONLCR;
+
+    tty.c_cc[VTIME] = 10;
+    tty.c_cc[VMIN] = 0;
+
+    if (tcsetattr(fd, TCSANOW, &tty) != 0) {
+        std::cerr << "Error configurando puerto serial: " << strerror(errno) << std::endl;
+        close(fd);
+        return -1;
+    }
+
+    std::cout << "Puerto serial configurado exitosamente" << std::endl;
+    return fd;
+}
+
+// Función para enviar comando al Arduino y leer respuesta
+bool enviarComandoArduino(int fd, const std::string& comando) {
+    std::string cmd = comando + "\n";
+    std::cout << "Enviando comando al Arduino: '" << comando << "'" << std::endl;
+    
+    ssize_t bytes = write(fd, cmd.c_str(), cmd.length());
+    if (bytes != static_cast<ssize_t>(cmd.length())) {
+        std::cerr << "Error enviando comando al Arduino: " << strerror(errno) << std::endl;
+        return false;
+    }
+    std::cout << "Comando enviado exitosamente (" << bytes << " bytes)" << std::endl;
+
+    // Esperar y leer respuesta del Arduino
+    char buffer[256];
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    ssize_t n = read(fd, buffer, sizeof(buffer) - 1);
+    if (n > 0) {
+        buffer[n] = '\0';
+        std::cout << "Respuesta del Arduino: " << buffer << std::endl;
+    } else {
+        std::cout << "No se recibió respuesta del Arduino" << std::endl;
+    }
+
+    return true;
+}
 
 int main() {
     const std::string BROKER_ADDRESS = "tcp://localhost:1883"; // Verifica que esta sea la IP y puerto correctos
     const std::string CLIENT_ID = "mi_aplicacion_cliente_unico_001"; // Debe ser único para cada cliente conectado
+    
+    // Configurar puerto serial
+    std::cout << "=== Iniciando configuración del puerto serial ===" << std::endl;
+    int serialFd = configurarPuertoSerial("/dev/ttyACM0", B9600);
+    if (serialFd < 0) {
+        std::cerr << "No se pudo configurar el puerto serial. Intentando con ttyUSB0..." << std::endl;
+        serialFd = configurarPuertoSerial("/dev/ttyUSB0", B9600);
+        if (serialFd < 0) {
+            std::cerr << "Error: No se pudo configurar ningún puerto serial" << std::endl;
+            return 1;
+        }
+    }
+    std::cout << "=== Puerto serial configurado exitosamente ===" << std::endl;
+
+    // Enviar comando de prueba
+    std::cout << "Enviando comando de prueba GET_STATUS..." << std::endl;
+    if (enviarComandoArduino(serialFd, "GET_STATUS")) {
+        std::cout << "Comando de prueba enviado exitosamente" << std::endl;
+    } else {
+        std::cerr << "Error enviando comando de prueba" << std::endl;
+        close(serialFd);
+        return 1;
+    }
 
     try {
         Broker myBroker(BROKER_ADDRESS, CLIENT_ID);
-
-        // --- ¡IMPORTANTE! Primero conectar ---
-        myBroker.connect(); // Esto intentará conectar al broker
+        myBroker.connect();
 
         // Suscribirse a los tópicos de dispositivos
         myBroker.subscribe("api/dispositivos/get", 1);                // Listar dispositivos
@@ -45,8 +151,9 @@ int main() {
         myBroker.subscribe("api/backups/programar", 1); // Programar respaldos automáticos (admin)
 
         // Configurar el callback para manejar mensajes recibidos
-        myBroker.set_message_callback([](const std::string& topic, const std::string& message) {
-            std::cout << "Mensaje recibido en tópico: '" << topic << "'" << std::endl;
+        myBroker.set_message_callback([&myBroker, serialFd](const std::string& topic, const std::string& message) {
+            std::cout << "\n=== Mensaje MQTT Recibido ===" << std::endl;
+            std::cout << "Tópico: '" << topic << "'" << std::endl;
             std::cout << "Contenido: '" << message << "'" << std::endl;
 
             // Verificar permisos según el tópico
@@ -113,14 +220,32 @@ int main() {
                     std::cout << "Acceso denegado: Solo admin, usuario y mantenimiento pueden ver el historial de fallas." << std::endl;
                 }
             } else if (topic == "api/comando") {
-                if (message.find("admin") != std::string::npos || message.find("usuario") != std::string::npos || message.find("mantenimiento") != std::string::npos) {
-                    std::string dispositivo = message.substr(message.find(":") + 1); // Extraer el nombre del dispositivo
-                    dispositivo.erase(0, dispositivo.find_first_not_of(" ")); // Eliminar espacios al inicio
-                    std::cout << "Comando enviado al dispositivo: '" << dispositivo << "'" << std::endl;
-                    // Logica segun el dispositivo
-                    
-                } else {
-                    std::cout << "Acceso denegado: Solo admin, usuario y mantenimiento pueden enviar comandos." << std::endl;
+                try {
+                    size_t start = message.find("{");
+                    size_t end = message.find("}");
+                    if (start != std::string::npos && end != std::string::npos) {
+                        std::string jsonStr = message.substr(start, end - start + 1);
+                        size_t pos_comando = jsonStr.find("\"comando\":");
+                        
+                        if (pos_comando != std::string::npos) {
+                            size_t start_cmd = jsonStr.find("\"", pos_comando + 10) + 1;
+                            size_t end_cmd = jsonStr.find("\"", start_cmd);
+                            std::string comando = jsonStr.substr(start_cmd, end_cmd - start_cmd);
+                            
+                            std::cout << "Comando extraído: " << comando << std::endl;
+                            
+                            if (enviarComandoArduino(serialFd, comando)) {
+                                myBroker.publish("arduino/respuesta", 
+                                    "{\"status\":\"comando_enviado\",\"comando\":\"" + comando + "\"}", 1);
+                            } else {
+                                myBroker.publish("arduino/respuesta", 
+                                    "{\"error\":\"Error enviando comando al Arduino\"}", 1);
+                            }
+                        }
+                    }
+                } catch (const std::exception& e) {
+                    std::cerr << "Error procesando comando JSON: " << e.what() << std::endl;
+                    myBroker.publish("arduino/respuesta", "{\"error\":\"Error procesando comando\"}", 1);
                 }
             } else if (topic == "api/usuarios/login") {
                 if (message.find("admin") != std::string::npos || message.find("usuario") != std::string::npos) {
@@ -354,7 +479,7 @@ int main() {
         });
 
         // Mantener el servidor en ejecución
-        std::cout << "Servidor MQTT en ejecución. Presiona Ctrl+C para detener." << std::endl;
+        std::cout << "\nServidor MQTT en ejecución. Presiona Ctrl+C para detener." << std::endl;
         while (true) {
             std::this_thread::sleep_for(std::chrono::seconds(1));
         }
@@ -375,5 +500,6 @@ int main() {
         return 1;
     }
 
+    close(serialFd); // Cerrar el puerto serial al finalizar
     return 0;
 }
