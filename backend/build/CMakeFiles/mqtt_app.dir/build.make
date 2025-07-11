@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/samuel/Escritorio/Ctrl-Home/backend
+CMAKE_SOURCE_DIR = /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/samuel/Escritorio/Ctrl-Home/backend/build
+CMAKE_BINARY_DIR = /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/mqtt_app.dir/depend.make
@@ -70,46 +70,46 @@ include CMakeFiles/mqtt_app.dir/progress.make
 include CMakeFiles/mqtt_app.dir/flags.make
 
 CMakeFiles/mqtt_app.dir/src/app.cpp.o: CMakeFiles/mqtt_app.dir/flags.make
-CMakeFiles/mqtt_app.dir/src/app.cpp.o: /home/samuel/Escritorio/Ctrl-Home/backend/src/app.cpp
+CMakeFiles/mqtt_app.dir/src/app.cpp.o: /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/app.cpp
 CMakeFiles/mqtt_app.dir/src/app.cpp.o: CMakeFiles/mqtt_app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/samuel/Escritorio/Ctrl-Home/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/mqtt_app.dir/src/app.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mqtt_app.dir/src/app.cpp.o -MF CMakeFiles/mqtt_app.dir/src/app.cpp.o.d -o CMakeFiles/mqtt_app.dir/src/app.cpp.o -c /home/samuel/Escritorio/Ctrl-Home/backend/src/app.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/mqtt_app.dir/src/app.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mqtt_app.dir/src/app.cpp.o -MF CMakeFiles/mqtt_app.dir/src/app.cpp.o.d -o CMakeFiles/mqtt_app.dir/src/app.cpp.o -c /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/app.cpp
 
 CMakeFiles/mqtt_app.dir/src/app.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/mqtt_app.dir/src/app.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/samuel/Escritorio/Ctrl-Home/backend/src/app.cpp > CMakeFiles/mqtt_app.dir/src/app.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/app.cpp > CMakeFiles/mqtt_app.dir/src/app.cpp.i
 
 CMakeFiles/mqtt_app.dir/src/app.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/mqtt_app.dir/src/app.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/samuel/Escritorio/Ctrl-Home/backend/src/app.cpp -o CMakeFiles/mqtt_app.dir/src/app.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/app.cpp -o CMakeFiles/mqtt_app.dir/src/app.cpp.s
 
 CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.o: CMakeFiles/mqtt_app.dir/flags.make
-CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.o: /home/samuel/Escritorio/Ctrl-Home/backend/src/core/Broker.cpp
+CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.o: /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/core/Broker.cpp
 CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.o: CMakeFiles/mqtt_app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/samuel/Escritorio/Ctrl-Home/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.o -MF CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.o.d -o CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.o -c /home/samuel/Escritorio/Ctrl-Home/backend/src/core/Broker.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.o -MF CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.o.d -o CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.o -c /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/core/Broker.cpp
 
 CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/samuel/Escritorio/Ctrl-Home/backend/src/core/Broker.cpp > CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/core/Broker.cpp > CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.i
 
 CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/samuel/Escritorio/Ctrl-Home/backend/src/core/Broker.cpp -o CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/core/Broker.cpp -o CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.s
 
 CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.o: CMakeFiles/mqtt_app.dir/flags.make
-CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.o: /home/samuel/Escritorio/Ctrl-Home/backend/src/core/data/SensorData.cpp
+CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.o: /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/core/data/SensorData.cpp
 CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.o: CMakeFiles/mqtt_app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/samuel/Escritorio/Ctrl-Home/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.o -MF CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.o.d -o CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.o -c /home/samuel/Escritorio/Ctrl-Home/backend/src/core/data/SensorData.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.o -MF CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.o.d -o CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.o -c /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/core/data/SensorData.cpp
 
 CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/samuel/Escritorio/Ctrl-Home/backend/src/core/data/SensorData.cpp > CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/core/data/SensorData.cpp > CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.i
 
 CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/samuel/Escritorio/Ctrl-Home/backend/src/core/data/SensorData.cpp -o CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/core/data/SensorData.cpp -o CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.s
 
 # Object files for target mqtt_app
 mqtt_app_OBJECTS = \
@@ -129,7 +129,7 @@ mqtt_app: /usr/lib/x86_64-linux-gnu/libpaho-mqtt3as.so
 mqtt_app: /usr/lib/x86_64-linux-gnu/libssl.so
 mqtt_app: /usr/lib/x86_64-linux-gnu/libcrypto.so
 mqtt_app: CMakeFiles/mqtt_app.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/samuel/Escritorio/Ctrl-Home/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable mqtt_app"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable mqtt_app"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/mqtt_app.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -141,6 +141,6 @@ CMakeFiles/mqtt_app.dir/clean:
 .PHONY : CMakeFiles/mqtt_app.dir/clean
 
 CMakeFiles/mqtt_app.dir/depend:
-	cd /home/samuel/Escritorio/Ctrl-Home/backend/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/samuel/Escritorio/Ctrl-Home/backend /home/samuel/Escritorio/Ctrl-Home/backend /home/samuel/Escritorio/Ctrl-Home/backend/build /home/samuel/Escritorio/Ctrl-Home/backend/build /home/samuel/Escritorio/Ctrl-Home/backend/build/CMakeFiles/mqtt_app.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/build /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/build /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/build/CMakeFiles/mqtt_app.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/mqtt_app.dir/depend
 

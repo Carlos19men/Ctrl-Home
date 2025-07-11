@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DOPENSSL=1
 
-CXX_INCLUDES = -I/home/samuel/Escritorio/Ctrl-Home/backend/src/core -I/home/samuel/Escritorio/Ctrl-Home/backend/src/core/data -I/home/samuel/Escritorio/Ctrl-Home/backend/src/clients -I/home/samuel/Escritorio/Ctrl-Home/backend/src/topics -I/home/samuel/Escritorio/Ctrl-Home/backend/src/utils
+CXX_INCLUDES = -I/home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/core -I/home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/core/data -I/home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/clients -I/home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/topics -I/home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/utils
 
 CXX_FLAGS = -std=gnu++17
 

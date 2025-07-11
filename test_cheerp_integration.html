@@ -51,6 +51,9 @@
 <body>
     <h1>Test de Integración Cheerp</h1>
     
+    <!-- Botón para enviar mensaje al backend -->
+    <button id="enviarBtn">Enviar mensaje al backend</button>
+
     <div class="test-section">
         <h2>1. Carga del módulo</h2>
         <button onclick="loadModule()">Cargar Módulo Cheerp</button>
@@ -213,6 +216,47 @@
                 console.error('Validation error:', error);
             }
         }
+    </script>
+    <!-- MQTT.js prueba de conexión -->
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <script>
+      // Cambia la URL si tu broker MQTT usa otro puerto o dirección
+      const brokerUrl = 'ws://localhost:9001'; // Mosquitto por defecto con WebSockets
+      const topic = 'api/comando'; // Tópico al que está suscrito el backend
+
+      const client = mqtt.connect(brokerUrl, {
+        username: '', // Si tu broker requiere usuario/contraseña, ponlos aquí
+        password: ''
+      });
+
+      client.on('connect', function () {
+        console.log('✅ Conectado al broker MQTT');
+        client.subscribe(topic, function (err) {
+          if (!err) {
+            console.log('🟢 Suscrito al tópico:', topic);
+          } else {
+            console.error('❌ Error al suscribirse:', err);
+          }
+        });
+      });
+
+      client.on('message', function (topic, message) {
+        console.log('📩 Mensaje recibido:', topic, message.toString());
+      });
+
+      client.on('error', function (err) {
+        console.error('❌ Error de conexión MQTT:', err);
+      });
+
+      client.on('close', function () {
+        console.warn('⚠️ Conexión MQTT cerrada');
+      });
+
+      document.getElementById('enviarBtn').onclick = function() {
+        const mensaje = JSON.stringify({accion: "prender_luz", origen: "frontend"});
+        client.publish(topic, mensaje);
+        console.log('Mensaje enviado al broker:', mensaje);
+      };
     </script>
 </body>
 </html> 

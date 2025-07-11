@@ -1,4 +1,4 @@
-# Install script for directory: /home/samuel/Escritorio/Ctrl-Home/backend
+# Install script for directory: /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/samuel/Escritorio/Ctrl-Home/backend/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

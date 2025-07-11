@@ -1,7 +1,7 @@
 CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.o: \
- /home/samuel/Escritorio/Ctrl-Home/backend/src/core/data/SensorData.cpp \
+ /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/core/data/SensorData.cpp \
  /usr/include/stdc-predef.h \
- /home/samuel/Escritorio/Ctrl-Home/backend/src/core/data/SensorData.h \
+ /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/core/data/SensorData.h \
  /usr/include/c++/13/string /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
@@ -168,7 +168,7 @@ CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.o: \
  /usr/include/c++/13/bits/ostream.tcc \
  /usr/include/c++/13/bits/istream.tcc \
  /usr/include/c++/13/bits/sstream.tcc \
- /home/samuel/Escritorio/Ctrl-Home/backend/src/core/data/../../utils/json.hpp \
+ /home/iadev/Documentos/Programacion/Proyectos/Ctrl-Home/backend/src/core/data/../../utils/json.hpp \
  /usr/include/c++/13/algorithm /usr/include/c++/13/bits/stl_algo.h \
  /usr/include/c++/13/bits/algorithmfwd.h \
  /usr/include/c++/13/bits/stl_heap.h \
