@@ -1,4 +1,4 @@
-#include "broker/Broker.h"
+#include "core/Broker.h"
 #include <iostream>
 
 Broker::Broker(const std::string& address, const std::string& clientId)
@@ -33,6 +33,15 @@ void Broker::disconnect() {
         }
     } catch (const mqtt::exception& e) {
         std::cerr << "[Broker] Disconnect failed: " << e.what() << std::endl;
+    }
+}
+
+void Broker::publish(const std::string& topic, const std::string& payload, int qos, bool retain) {
+    try {
+        client_->publish(topic, payload.c_str(), payload.size(), qos, retain)->wait();
+        std::cout << "[Broker] Published to " << topic << std::endl;
+    } catch (const mqtt::exception& e) {
+        std::cerr << "[Broker] Publish failed: " << e.what() << std::endl;
     }
 }
 

@@ -3,7 +3,31 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include "data/SensorData.h" // Ajusta la ruta si es necesario
+#include <thread>
+#include <atomic>
+std::atomic<bool> mqtt_running{true};
 
+void mqtt_listener(PostgresDB& db) {
+    Broker myBroker("tcp://mosquitto:1883", "cliente1");
+    myBroker.connect();
+    myBroker.subscribe("sensores/actualizar");
+    myBroker.set_message_callback([&db](const std::string& topic, const std::string& message) {
+        std::cout << "[MQTT] Mensaje recibido en " << topic << ": " << message << std::endl;
+        try {
+            SensorData data = SensorData::fromJsonString(message);
+            data.updateDatabase(db);
+            std::cout << "[DB] Sensor " << data.getDeviceId() << " actualizado a " << data.getTemperature() << "°C\n";
+        } catch (const std::exception& e) {
+            std::cerr << "[ERROR] No se pudo procesar el mensaje MQTT: " << e.what() << std::endl;
+        }
+    });
+    std::cout << "[MQTT] Escuchando actualizaciones de sensores...\n";
+    while (mqtt_running) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+    myBroker.disconnect();
+}
 // ----------- USUARIOS -----------
 void crearUsuario(PostgresDB& db) {
     int id, llave;
@@ -679,6 +703,9 @@ int main() {
         std::cerr << "No se pudo conectar a la base de datos." << std::endl;
         return 1;
     }
+
+    std::thread mqtt_thread(mqtt_listener, std::ref(db));
+
     int opcion;
     do {
         std::cout << "\n--- MENU CRUD GENERAL ---\n";
@@ -869,23 +896,13 @@ int main() {
                 } while (op != 0);
                 break;
             }
-            case 14: {
-                Broker myBroker("tcp://host.docker.internal:1883", "cliente1");
-                myBroker.connect();
-                myBroker.subscribe("test/topic");
-                myBroker.set_message_callback([](const std::string& topic, const std::string& message) {
-                    std::cout << "[MQTT] Mensaje recibido en " << topic << ": " << message << std::endl;
-                });
-                std::cout << "MQTT conectado y suscrito a test/topic. Esperando mensajes...\n";
-                std::cout << "Presiona ENTER para desconectar MQTT.\n";
-                std::cin.get();
-                myBroker.disconnect();
-                break;
-            }
             case 0: break;
             default: std::cout << "Opcion invalida.\n";
         }
     } while (opcion != 0);
+
+    mqtt_running = false;
+    mqtt_thread.join();
 
     db.disconnect();
     return 0;

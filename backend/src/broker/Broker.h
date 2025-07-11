@@ -1,5 +1,4 @@
-#ifndef BROKER_H
-#define BROKER_H
+#pragma once
 
 #include <string>
 #include <functional>
@@ -9,8 +8,10 @@ class Broker {
 public:
     Broker(const std::string& address, const std::string& clientId);
     ~Broker();
+
     void connect();
     void disconnect();
+    void publish(const std::string& topic, const std::string& payload, int qos = 1, bool retain = false);
     void subscribe(const std::string& topic, int qos = 1);
     void set_message_callback(std::function<void(const std::string&, const std::string&)> callback);
 
@@ -31,5 +32,3 @@ private:
     };
     Callback* cb_;
 };
-
-#endif // BROKER_H
