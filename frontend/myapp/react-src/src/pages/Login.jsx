@@ -177,7 +177,7 @@ function Login() {
 
       {/* INICIAR SESION */}
       <motion.div 
-        className='w-[50%] h-[60%] left-1/2 transform -translate-x-1/2 top-[25%] absolute bg-zinc-100 rounded-2xl'
+        className='w-[50%] h-[50%] left-1/2 transform -translate-x-1/2 top-[30%] absolute bg-zinc-100 rounded-2xl'
         initial={{ y: '50vh', opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: '50vh', opacity: 0 }}
@@ -242,7 +242,7 @@ function Login() {
         <motion.button
           onClick={handleLogin}
           disabled={isLoading}
-          className={`w-[45%] h-[12%] left-1/2 transform -translate-x-1/2 top-[88%] absolute bg-azul-2 rounded-2xl cursor-pointer focus:outline-none ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`w-[45%] h-[12%] left-1/2 transform -translate-x-1/2 top-[85%] absolute bg-azul-2 rounded-2xl cursor-pointer focus:outline-none ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
           whileHover={!isLoading ? { scale: 1.05 } : {}}
           whileTap={!isLoading ? { scale: 0.95 } : {}}
           transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -255,7 +255,7 @@ function Login() {
       
       {/* TEXTO DE ABAJO */}
       <motion.div 
-        className="w-[27%] h-[8%] left-1/2 transform -translate-x-1/2 top-[88%] absolute"
+        className="w-[27%] h-[8%] left-1/2 transform -translate-x-1/2 top-[81%] absolute"
         initial={{ y: '50vh', opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: '50vh', opacity: 0 }}

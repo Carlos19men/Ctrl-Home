@@ -9,6 +9,8 @@ function Home() {
   const navigate = useNavigate();
   const [currentSection, setCurrentSection] = useState('favoritos');
   const [currentTime, setCurrentTime] = useState(new Date());
+  // Obtener el nombre del usuario desde localStorage
+  const userName = (localStorage.getItem('user_name') || 'PETROLINA').toUpperCase();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -45,7 +47,7 @@ function Home() {
           <div className="mt-20 ml-8 px-12">
             <div className="flex justify-between items-start mb-6">
               <div>
-                <h2 className="text-5xl font-bold text-neutral-700 mb-6 font-['Kantumruy Pro']">¡HOLA PETROLINA!</h2>
+                <h2 className="text-5xl font-bold text-neutral-700 mb-6 font-['Kantumruy Pro']">¡HOLA {userName}!</h2>
                 <p className="text-3xl text-neutral-700 font-['Lexend']">Descubre el estado actual de tus dispositivos.</p>
               </div>
               <div className="text-right">
