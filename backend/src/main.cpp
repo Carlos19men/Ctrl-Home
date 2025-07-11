@@ -1,3 +1,4 @@
+#include "broker/Broker.h"
 #include "Postgres/PostgresDB.h"
 #include <iostream>
 #include <vector>
@@ -681,7 +682,7 @@ int main() {
     int opcion;
     do {
         std::cout << "\n--- MENU CRUD GENERAL ---\n";
-        std::cout << "1. Usuarios\n2. Llaves de Acceso\n3. Dispositivos\n4. Configuraciones\n5. Accesos Usuarios\n6. Iluminacion\n7. Electrodomesticos\n8. Climatizacion\n9. Seguridad\n10. Intrusiones\n11. Cronograma Dispositivo\n12. Accesos\n13. Consumos\n0. Salir\nOpcion: ";
+        std::cout << "1. Usuarios\n2. Llaves de Acceso\n3. Dispositivos\n4. Configuraciones\n5. Accesos Usuarios\n6. Iluminacion\n7. Electrodomesticos\n8. Climatizacion\n9. Seguridad\n10. Intrusiones\n11. Cronograma Dispositivo\n12. Accesos\n13. Consumos\n14. Probar MQTT\n0. Salir\nOpcion: ";
         std::cin >> opcion;
         std::cin.ignore();
 
@@ -866,6 +867,19 @@ int main() {
                         case 4: eliminarConsumo(db); break;
                     }
                 } while (op != 0);
+                break;
+            }
+            case 14: {
+                Broker myBroker("tcp://host.docker.internal:1883", "cliente1");
+                myBroker.connect();
+                myBroker.subscribe("test/topic");
+                myBroker.set_message_callback([](const std::string& topic, const std::string& message) {
+                    std::cout << "[MQTT] Mensaje recibido en " << topic << ": " << message << std::endl;
+                });
+                std::cout << "MQTT conectado y suscrito a test/topic. Esperando mensajes...\n";
+                std::cout << "Presiona ENTER para desconectar MQTT.\n";
+                std::cin.get();
+                myBroker.disconnect();
                 break;
             }
             case 0: break;
