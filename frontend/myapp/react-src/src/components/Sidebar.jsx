@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { SidebarAnimationContext } from '../App';
@@ -8,17 +8,19 @@ function Sidebar({ fadeInSidebar }){
     const location = useLocation();
     const prevPathRef = useRef();
     const { shouldAnimateSidebar, setShouldAnimateSidebar } = useContext(SidebarAnimationContext);
+    const [shouldFade, setShouldFade] = React.useState(false);
+
     // Guardar la ruta anterior
-    React.useEffect(() => {
+    useEffect(() => {
         prevPathRef.current = location.pathname;
     }, [location.pathname]);
 
-    let shouldFade = false;
-    if (fadeInSidebar && shouldAnimateSidebar) {
-        shouldFade = true;
-        // Reset después de usar
-        setShouldAnimateSidebar(false);
-    }
+    useEffect(() => {
+        if (fadeInSidebar && shouldAnimateSidebar) {
+            setShouldFade(true);
+            setShouldAnimateSidebar(false);
+        }
+    }, [fadeInSidebar, shouldAnimateSidebar, setShouldAnimateSidebar]);
 
     const isActive = (path) => {
         return location.pathname === path;

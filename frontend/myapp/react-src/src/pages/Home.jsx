@@ -56,9 +56,10 @@ function Home() {
               </div>
             </div>
             <div className="grid grid-cols-3 gap-6 mt-12">
-              <DeviceCard name="Cafetera Oster" room="Cocina"/>
-              <DeviceCard name="Bocina JBL" room="Sala de estar" status="65%" />
-              <DeviceCard name="Lámpara PHILLIPS" room="Dormitorio" />
+              <DeviceCard name="Luz Principal" room="Sala de estar" ledId={10}/>
+              <DeviceCard name="Luz Principal" room="Cocina" ledId={2}/>
+              <DeviceCard name="Luz Principal" room="Dormitorio" ledId={3}/>
+              <DeviceCard name="Luz Ambiente" room="Dormitorio" ledId={4}/>
             </div>
           </div>
         );
@@ -69,9 +70,7 @@ function Home() {
             <h2 className="text-4xl font-bold text-neutral-700 mb-6">Sala de Estar</h2>
             <p className="text-2xl text-neutral-700 mb-12">Gestiona los dispositivos de tu sala</p>
             <div className="grid grid-cols-3 gap-6">
-              <DeviceCard name="Smart TV Samsung" room="Sala de estar" />
-              <DeviceCard name="Bocina JBL" room="Sala de estar" status="65%" />
-              <DeviceCard name="Lámpara de pie" room="Sala de estar" />
+              <DeviceCard name="Luz Principal" room="Sala de estar" ledId={10}/>
               <DeviceCard name="Ventilador de techo" room="Sala de estar" />
             </div>
           </div>
@@ -83,10 +82,9 @@ function Home() {
             <h2 className="text-4xl font-bold text-neutral-700 mb-6">Cocina</h2>
             <p className="text-2xl text-neutral-700 mb-12">Controla tus electrodomésticos</p>
             <div className="grid grid-cols-3 gap-6">
-              <DeviceCard name="Cafetera Oster" room="Cocina" />
+              <DeviceCard name="Luz Principal" room="Cocina" ledId={2}/>
               <DeviceCard name="Microondas" room="Cocina" />
               <DeviceCard name="Refrigerador" room="Cocina" />
-              <DeviceCard name="Lavavajillas" room="Cocina" />
             </div>
           </div>
         );
@@ -97,10 +95,9 @@ function Home() {
             <h2 className="text-4xl font-bold text-neutral-700 mb-6">Dormitorio</h2>
             <p className="text-2xl text-neutral-700 mb-12">Configura el ambiente perfecto para descansar</p>
             <div className="grid grid-cols-3 gap-6">
+              <DeviceCard name="Luz Principal" room="Dormitorio" ledId={3}/>
+              <DeviceCard name="Luz Ambiente" room="Dormitorio" ledId={4}/>
               <DeviceCard name="Aire Acondicionado" room="Dormitorio" />
-              <DeviceCard name="Lámpara PHILLIPS" room="Dormitorio" />
-              <DeviceCard name="TV Dormitorio" room="Dormitorio" />
-              <DeviceCard name="Persiana Inteligente" room="Dormitorio" />
             </div>
           </div>
         );
