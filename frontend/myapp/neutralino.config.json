@@ -1,0 +1,39 @@
+{
+  "applicationId": "js.neutralino.zero",
+  "version": "1.0.0",
+  "defaultMode": "window",
+  "documentRoot": "/react-src/build/index.html",
+  "url": "/",
+  "enableServer": true,
+  "enableNativeAPI": true,
+  "nativeAllowList": [
+    "app.*",
+    "filesystem.readDirectory"
+  ],
+  "modes": {
+    "window": {
+      "title": "Ctrl+Home",
+      "width": 1920,
+      "height": 1020,
+      "minWidth": 400,
+      "minHeight": 200,
+      "icon": "/react-src/public/logoazul.png",
+      "enableInspector": true
+    }
+  },
+  "cli": {
+    "binaryName": "myapp",
+    "extensionsPath": "/extensions/",
+    "resourcesPath": "/react-src/build/",
+    "frontendLibrary": {
+      "patchFile": "/react-src/index.html",
+      "devUrl": "http://localhost:3000",
+      "projectPath": "/react-src/",
+      "initCommand": "npm install",
+      "devCommand": "npm run dev",
+      "buildCommand": "npm run build",
+      "waitTimeout": 20000
+    },
+    "binaryVersion": "6.1.0"
+  }
+}

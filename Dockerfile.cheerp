@@ -1,0 +1,36 @@
+FROM ubuntu:22.04
+
+# Evitar prompts interactivos durante la instalación
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Actualizar e instalar dependencias básicas
+RUN apt-get update && apt-get install -y \
+    wget \
+    curl \
+    build-essential \
+    cmake \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Agregar el PPA de Cheerp
+RUN apt-get update && apt-get install -y software-properties-common
+RUN add-apt-repository ppa:leaningtech-dev/cheerp-ppa
+
+# Instalar Cheerp
+RUN apt-get update && apt-get install -y \
+    cheerp-core \
+    cheerp-libs \
+    cheerp-utils \
+    && rm -rf /var/lib/apt/lists/*
+
+# Configurar el PATH para Cheerp
+ENV PATH="/opt/cheerp/bin:$PATH"
+
+# Crear directorio de trabajo
+WORKDIR /workspace
+
+# Verificar la instalación
+RUN /opt/cheerp/bin/clang++ --version
+
+# Comando por defecto
+CMD ["/bin/bash"] 

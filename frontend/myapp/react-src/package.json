@@ -1,0 +1,62 @@
+{
+  "name": "myapp-react",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@iconify-icons/gg": "^1.2.4",
+    "@iconify-icons/heroicons": "^1.2.9",
+    "@iconify-icons/ic": "^1.2.13",
+    "@iconify-icons/iconamoon": "^1.2.0",
+    "@iconify-icons/ion": "^1.2.10",
+    "@iconify-icons/line-md": "^1.2.30",
+    "@iconify-icons/material-symbols": "^1.2.58",
+    "@iconify-icons/mdi": "^1.2.48",
+    "@iconify-icons/mingcute": "^1.2.9",
+    "@iconify-icons/octicon": "^1.2.46",
+    "@iconify-icons/tdesign": "^1.2.0",
+    "@neutralinojs/lib": "^5.1.1",
+    "@tailwindcss/vite": "^4.1.10",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "framer-motion": "^12.19.2",
+    "lucide-react": "^0.515.0",
+    "mqtt": "^5.13.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.6.2",
+    "tailwindcss": "^4.1.10",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "vite preview"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.5.2",
+    "cross-env": "^7.0.3",
+    "vite": "^6.3.5"
+  }
+}

@@ -1,0 +1,113 @@
+EJEMPLOS DE TÓPICOS MQTT
+=======================
+
+1. DISPOSITIVOS
+--------------
+# Listar dispositivos
+mosquitto_pub -t "api/dispositivos/get" -m "admin: listar_todos"
+mosquitto_pub -t "api/dispositivos/get" -m "usuario: listar_mios"
+
+# Ver dispositivos más usados
+mosquitto_pub -t "api/dispositivos/get/uso-frecuente" -m "admin: top_5"
+
+# Registrar nuevo dispositivo
+mosquitto_pub -t "api/dispositivos/post" -m "admin: nuevo_dispositivo tipo: sensor_temperatura nombre: sensor_sala"
+
+# Solicitar acceso a dispositivo IoT
+mosquitto_pub -t "api/dispositivos/post/solicitud" -m "dispositivo IOT: sensor_001 solicitar_acceso"
+
+# Configurar dispositivo
+mosquitto_pub -t "api/dispositivos/patch" -m "admin: AC001 modo: auto temperatura: 23"
+
+2. DATOS Y ESTADO
+----------------
+# Enviar datos desde Arduino
+mosquitto_pub -t "api/datos" -m "dispositivo IOT: sensor_001 temperatura: 25.5 humedad: 45"
+
+# Obtener estado de dispositivo
+mosquitto_pub -t "api/estado" -m "admin: AC001"
+mosquitto_pub -t "api/estado" -m "usuario: sensor_sala"
+
+# Escanear sistema
+mosquitto_pub -t "api/estado/escanear" -m "admin: escanear_todo"
+mosquitto_pub -t "api/estado/escanear" -m "mantenimiento: verificar_sistema"
+
+# Verificar versión
+mosquitto_pub -t "api/estado/version" -m "admin: verificar_firmware"
+
+# Actualizar software
+mosquitto_pub -t "api/estado/version/actualizar" -m "admin: actualizar_a_v2.0"
+
+# Ver historial de fallas
+mosquitto_pub -t "api/estado/fallas" -m "admin: ver_ultimas_24h"
+
+3. USUARIOS Y AUTENTICACIÓN
+--------------------------
+# Login
+mosquitto_pub -t "api/usuarios/login" -m "admin: Admin123!"
+mosquitto_pub -t "api/usuarios/login" -m "usuario: UserPass456!"
+
+# Ver perfil
+mosquitto_pub -t "api/usuarios/perfil" -m "admin: ver_mi_perfil"
+mosquitto_pub -t "api/usuarios/perfil" -m "usuario: ver_mi_perfil"
+
+# Crear usuario
+mosquitto_pub -t "api/usuarios/crear" -m "admin: nuevo_usuario: Juan2024#: user"
+
+# Eliminar usuario (solo admin)
+mosquitto_pub -t "api/usuarios/eliminar" -m "admin: eliminar_usuario: juan_perez"
+
+4. ROLES Y PERMISOS
+------------------
+# Consultar permisos
+mosquitto_pub -t "api/roles/permisos" -m "admin: ver_permisos: mantenimiento"
+
+# Asignar rol
+mosquitto_pub -t "api/roles/assign" -m "admin: asignar_rol: juan_perez: mantenimiento"
+
+5. ILUMINACIÓN
+-------------
+# Control de luces
+mosquitto_pub -t "api/luz/zona" -m "admin: sala accion: encender"
+mosquitto_pub -t "api/luz/zona" -m "usuario: cocina accion: apagar"
+mosquitto_pub -t "api/luz/zona" -m "invitado: pasillo accion: encender"
+
+# Programar iluminación
+mosquitto_pub -t "api/luz/zona/programar" -m "admin: sala horario: 18:00 accion: encender"
+mosquitto_pub -t "api/luz/zona/programar" -m "usuario: dormitorio horario: 22:00 accion: apagar"
+
+6. CLIMATIZACIÓN
+---------------
+# Ajustar temperatura
+mosquitto_pub -t "api/clima/zona" -m "admin: sala temperatura: 22.5"
+mosquitto_pub -t "api/clima/zona" -m "usuario: cocina temperatura: 23"
+mosquitto_pub -t "api/clima/zona" -m "invitado: pasillo temperatura: 21"
+
+# Programar climatización
+mosquitto_pub -t "api/clima/zona/programar" -m "admin: sala horario: 08:00 temperatura: 23"
+mosquitto_pub -t "api/clima/zona/programar" -m "usuario: dormitorio horario: 22:00 temperatura: 20"
+
+7. BACKUPS
+---------
+# Ver respaldos
+mosquitto_pub -t "api/backups" -m "admin: listar_respaldos"
+
+# Crear respaldo
+mosquitto_pub -t "api/backups/crear" -m "admin: crear_respaldo_completo"
+
+# Programar respaldos
+mosquitto_pub -t "api/backups/programar" -m "admin: programar_diario hora: 02:00"
+
+8. CONSUMO Y REPORTES
+--------------------
+# Ver consumo actual
+mosquitto_pub -t "api/consumo" -m "admin: AC001"
+mosquitto_pub -t "api/consumo" -m "usuario: sensor_sala"
+
+# Comparar consumo
+mosquitto_pub -t "api/consumo/comparar" -m "admin: AC001 periodo: mensual"
+mosquitto_pub -t "api/consumo/comparar" -m "usuario: sensor_sala periodo: semanal"
+
+# Generar reporte
+mosquitto_pub -t "api/reportes" -m "admin: generar_consumo_mensual"
+mosquitto_pub -t "api/reportes" -m "admin: generar_estado_sistema"

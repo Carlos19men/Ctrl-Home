@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/mqtt_app.dir/src/app.cpp.o CMakeFiles/mqtt_app.dir/src/core/Broker.cpp.o CMakeFiles/mqtt_app.dir/src/core/data/SensorData.cpp.o -o mqtt_app  -lpaho-mqttpp3 -lpaho-mqtt3as -lpthread 
