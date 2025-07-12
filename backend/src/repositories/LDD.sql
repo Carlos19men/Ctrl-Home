@@ -1,55 +1,65 @@
-create database Ctrl_home;
+CREATE DATABASE Ctrl_home;
 
 CREATE SCHEMA IF NOT EXISTS domotica;
 
 
 --creamos los dominios
-create domain domotica.nivelAcceso as TEXT not null check (value in ('administrador','usuario','visitante','personal de servicio','personal de mantenimiento')); 
+create DOMAIN domotica.nivelAcceso AS TEXT NOT NULL CHECK  (value in ('administrador','usuario','visitante','personal de servicio','personal de mantenimiento')); 
 
-create domain domotica.tipoLlave as text not null check (value in ('temporal','permanente'));
+create DOMAIN domotica.tipoLlave AS text NOT NULL CHECK  (value in ('temporal','permanente'));
 
-create domain domotica.estadoDispositivo as TEXT not null check (value in ('encendido','apagado','en espera')); 
+create DOMAIN domotica.estadoDispositivo AS TEXT NOT NULL CHECK  (value in ('encendido','apagado','en espera')); 
 
-create domain domotica.tipoDispositivo as TEXT not null check (value in ('iluminación','electrodomestico','climatización','seguridad'));
+create DOMAIN domotica.tipoDispositivo AS TEXT NOT NULL CHECK  (value in ('iluminación','electrodomestico','climatización','seguridad'));
 
-create domain domotica.resultadoAcceso as TEXT not null check (value in ('concedido','denegado'));
+create DOMAIN domotica.resultadoAcceso AS TEXT NOT NULL CHECK  (value in ('concedido','denegado'));
 
-create domain domotica.nivelIntrusion as TEXT not null check (value in ('bajo','medio','alto'));
+create DOMAIN domotica.nivelIntrusion AS TEXT NOT NULL CHECK  (value in ('bajo','medio','alto'));
 
-create domain domotica.semana as TEXT not null check (value in ('lunes','martes','miercoles','jueves','viernes','sabado','domingo'));
+create DOMAIN domotica.semana AS TEXT NOT NULL CHECK  (value in ('lunes','martes','miercoles','jueves','viernes','sabado','domingo'));
 
 
 --tabla de llaves de acceso 
-create table domotica.Llaves_de_Acceso(
+create TABLE domotica.Llaves_de_Acceso(
 	ID_llave int primary key,
 	clave varchar, 
 	tipo domotica.tipoLlave, 
 	fecha_vencimiento date
 );
 
-create table domotica.usuarios (
+create TABLE domotica.usuarios (
 	ID_usuario int primary key,
 	CI varchar(9) unique,
-	primer_nombre varchar(15) not null,
+	primer_nombre varchar(15) NOT NULL,
 	segundo_nombre varchar(15),
-	primer_apellido varchar(15) not null,
+	primer_apellido varchar(15) NOT NULL,
 	segundo_apellido varchar(25),
 	acceso domotica.nivelAcceso,
 	llave int,
 	foreign key (llave) references domotica.Llaves_de_acceso(ID_llave)
 );
 
-create table domotica.dispositivos (
+ALTER TABLE domotica.usuarios 
+    DROP COLUMN primer_nombre,
+    DROP COLUMN segundo_nombre,
+    DROP COLUMN primer_apellido,
+    DROP COLUMN segundo_apellido;
+
+ALTER TABLE domotica.usuarios 
+    ADD COLUMN nombres VARCHAR(40) NOT NULL,
+    ADD COLUMN apellidos VARCHAR(40) NOT NULL;
+
+create TABLE domotica.dispositivos (
 	ID_dispositivo int primary key,
-	nombre varchar not null,
+	nombre varchar NOT NULL,
 	descripcion varchar,
 	estado domotica.estadoDispositivo default 'apagado',
 	tipo domotica.tipoDispositivo 
 );
 
-alter table domotica.dispositivos add column estado domotica.estadoDispositivo default 'apagado'
+alter TABLE domotica.dispositivos add column estado domotica.estadoDispositivo default 'apagado'
 
-create table domotica.configuraciones (
+create TABLE domotica.configuraciones (
 	ID_usuario int, 
 	ID_dispositivo int, 
 	fecha date,
@@ -60,7 +70,7 @@ create table domotica.configuraciones (
 	foreign key (ID_dispositivo) references domotica.dispositivos(ID_dispositivo)
 ); 
 
-create table domotica.Accesos_usuarios(
+create TABLE domotica.Accesos_usuarios(
 	ID_usuario int, 
 	ID_dispositivo int, 
 	fecha date,
@@ -71,63 +81,64 @@ create table domotica.Accesos_usuarios(
 	foreign key (ID_dispositivo) references domotica.dispositivos (ID_dispositivo)
 ); 
 
-alter table domotica.accesos_usuarios add column resultado domotica.resultadoAcceso 
+alter TABLE domotica.accesos_usuarios add column resultado domotica.resultadoAcceso 
 
 
-create table  domotica.iluminacion (
+create TABLE  domotica.iluminacion (
 	ID_iluminacion int primary key,
 	nivel_iluminacion int check (nivel_iluminacion >= 1 and nivel_iluminacion <=10),
 	foreign key (ID_iluminacion) references domotica.dispositivos(ID_dispositivo)
 );
+ALTER TABLE domotica.iluminacion DROP COLUMN nivel_iluminacion;
+ALTER TABLE domotica.iluminacion ADD COLUMN nivel_iluminacion int check (nivel_iluminacion >= 0 and nivel_iluminacion <=10);
 
-
-create table  domotica.electrodomesticos(
+create TABLE  domotica.electrodomesticos(
 	ID_electrodomestico int primary key,
 	foreign key (ID_electrodomestico) references domotica.dispositivos(ID_dispositivo)
 );
 
 
-create table domotica.climatizacion(
+create TABLE domotica.climatizacion(
 	ID_dispositivo int primary key,
 	temperatura_promedio int check (temperatura_promedio >= -50 and temperatura_promedio <=50),
 	foreign key (ID_dispositivo) references domotica.dispositivos(ID_dispositivo)
 );
 
-create table  domotica.seguridad(
+create TABLE  domotica.seguridad(
 	ID_seguridad int primary key,
 	foreign key (ID_seguridad) references domotica.dispositivos(ID_dispositivo)
 );
 
-create table domotica.intrusiones (
+create TABLE domotica.intrusiones (
 
 	ID_intrusion int primary key,
 	descripcion varchar,
-	fecha date not null,
-	hora time not null,
+	fecha date NOT NULL,
+	hora time NOT NULL,
 	nivel domotica.nivelIntrusion,
 	ID_seguridad int,
 	foreign key (ID_seguridad) references domotica.seguridad(ID_seguridad)
 );
 
-create table domotica.cronograma_dispositivo(
+create TABLE domotica.cronograma_dispositivo(
 	ID_dispositivo int,
 	dia_semana domotica.semana,
 	hora time,
-	accion domotica.estadoDispositivo,
+	accion domotica.estadoDispositivo not null,
 	primary key (ID_dispositivo,dia_semana,hora),
 	foreign key (ID_dispositivo) references domotica.dispositivos(ID_dispositivo)
 );
-alter table domotica.cronograma_dispositivo add column accion domotica.estadoDispositivo 
-alter table domotica.cronograma_dispositivo alter column accion drop default   
+alter TABLE domotica.cronograma_dispositivo add column accion domotica.estadoDispositivo 
+alter TABLE domotica.cronograma_dispositivo alter column accion DROP default   
 
-create table domotica.Accesos(
+create TABLE domotica.Accesos(
 	ID_dispositivo int,
 	acceso domotica.nivelAcceso,
 	primary key (ID_dispositivo,acceso),
 	foreign key (ID_dispositivo) references domotica.dispositivos(ID_dispositivo)
 );
 
-create table domotica.consumos(
+create TABLE domotica.consumos(
 	ID_dispositivo int,
 	fecha date,
 	consumo int check (consumo >= 1),
@@ -139,26 +150,26 @@ create table domotica.consumos(
 
 
 -- en caso de necesitar borrarla 
-drop table domotica.consumos, domotica.accesos; 
-drop table domotica.cronograma_dispositivo; 
-drop table domotica.intrusiones; 
-drop table domotica.seguridad; 
-drop table domotica.electrodomesticos; 
-drop table domotica.climatizacion; 
-drop table domotica.iluminacion; 
-drop table domotica.Accesos_usuarios;
-drop table domotica.configuraciones;
-drop table domotica.dispositivos;
-drop table domotica.usuarios; 
-drop table domotica.Llaves_de_Acceso; 
+DROP TABLE domotica.consumos, domotica.accesos; 
+DROP TABLE domotica.cronograma_dispositivo; 
+DROP TABLE domotica.intrusiones; 
+DROP TABLE domotica.seguridad; 
+DROP TABLE domotica.electrodomesticos; 
+DROP TABLE domotica.climatizacion; 
+DROP TABLE domotica.iluminacion; 
+DROP TABLE domotica.Accesos_usuarios;
+DROP TABLE domotica.configuraciones;
+DROP TABLE domotica.dispositivos;
+DROP TABLE domotica.usuarios; 
+DROP TABLE domotica.Llaves_de_Acceso; 
 
 
 
 --en caso de borrar los dominios 
-drop domain domotica.nivelAcceso, domotica.tipoLlave, domotica.estadoDispositivo, domotica.tipoDispositivo,domotica.resultadoAcceso,domotica.nivelIntrusion,domotica.semana;
+DROP DOMAIN domotica.nivelAcceso, domotica.tipoLlave, domotica.estadoDispositivo, domotica.tipoDispositivo,domotica.resultadoAcceso,domotica.nivelIntrusion,domotica.semana;
 
 --en caso de borrar la base de datos (pa que no se)
-drop database Ctrl_home;
+DROP DATABASE Ctrl_home;
 
 
 

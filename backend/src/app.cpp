@@ -1,3 +1,4 @@
+
 // En src/app.cpp
 #include "core/Broker.h" // Asegúrate de que la ruta sea correcta
 #include <iostream>
